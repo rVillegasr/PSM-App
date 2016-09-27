@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+
+    tools:context=".Fragments.FragmentEventFooter">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="100"
+        android:id="@+id/linearLayout3"
+        android:background="#555555"
+        android:padding="5dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/linearLayout">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Descripcion breve del evento"
+                android:id="@+id/tv_eventDescription"
+                android:textStyle="italic"
+                android:textColor="#ffffff"
+                android:textSize="30dp"
+                android:textIsSelectable="false"
+                android:layout_toStartOf="@+id/btn_weather" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio:"
+                android:id="@+id/tv_eventPriceLB"
+                android:textSize="30dp"
+                android:layout_below="@+id/tv_eventDate"
+                android:layout_alignParentStart="false"
+                android:textColor="#ffffff"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$"
+                android:id="@+id/tv_eventPrice"
+                android:layout_alignBottom="@+id/tv_eventPriceLB"
+                android:layout_toEndOf="@+id/tv_eventPriceLB"
+                android:textSize="30dp"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false"
+                android:textColor="#f0c23b" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_eventDate"
+                android:layout_below="@+id/tv_eventDescription"
+                android:textSize="30dp"
+                android:layout_alignParentEnd="false"
+                android:text="Dia, Mes XX a las Hora SH"
+                android:textColor="#ffffff"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false" />
+
+            <Button
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:text="clima"
+                android:id="@+id/btn_weather"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:text="Maps"
+                android:id="@+id/btn_maps"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="false"
+                android:layout_alignParentStart="false" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Direccion"
+                android:id="@+id/tv_eventAddress"
+                android:layout_toRightOf="@+id/btn_maps"
+                android:layout_centerVertical="true"
+                android:textSize="20dp"
+                android:textColor="#303030" />
+
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentBottom="false"
+        android:background="#555555"
+        android:layout_below="@+id/linearLayout3"
+        android:padding="5dp">
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="$"
+            android:id="@+id/btn_buyTicket"
+            android:textSize="30dp"
+            android:background="@drawable/round_button"
+            android:layout_marginLeft="5dp"
+            android:textColor="#FFFFFF"
+            android:layout_marginRight="5dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_margin="10dp" />
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="CHAT"
+            android:id="@+id/btn_openChat"
+            android:layout_toLeftOf="@+id/btn_buyTicket"
+            android:background="@drawable/round_button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:padding="10dp"
+            android:textColor="#ffffff"
+            android:layout_marginTop="10dp"
+            android:layout_alignBottom="@+id/btn_buyTicket" />
+
+        <Button
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:text="SHARE"
+            android:id="@+id/btn_shareMom"
+            android:layout_toStartOf="@+id/btn_openChat"
+            android:background="@drawable/round_button"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#ffffff" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

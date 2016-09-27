@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="fcfm.psm.psm_app.ShareMomentActivity">
+
+    <Button
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:text="+"
+        android:id="@+id/btn_postImage"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:textSize="25dp"
+        android:background="#4a6bfc"
+        android:textColor="#ffffff" />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:id="@+id/txt_postDescription"
+        android:layout_toRightOf="@+id/btn_postImage"
+        android:layout_alignParentTop="false"
+        android:gravity="top"
+        android:background="#303030"
+        android:textColor="#ffffff"
+        android:hint="Escriba un pensamiento"
+        android:textColorHint="#656565"/>
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Share on Facebook"
+        android:id="@+id/sw_shareFB"
+        android:layout_below="@+id/txt_postDescription"
+        android:background="#3b5997"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        android:checked="false" />
+
+    <Switch
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Share on Instagram"
+        android:id="@+id/sw_shareIG"
+        android:layout_below="@+id/sw_shareFB"
+        android:background="#49779b"
+        android:layout_marginTop="10dp"
+        android:textColor="#FFFFFF"
+        android:textSize="17dp"
+        android:paddingLeft="10dp"
+        android:textStyle="bold"
+        android:checked="false" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Share"
+        android:id="@+id/btn_share"
+        android:layout_alignParentBottom="true"
+        android:background="#303030"
+        android:textColor="#ffffff"
+        android:textSize="20dp" />
+
+</RelativeLayout>

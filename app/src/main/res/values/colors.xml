@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#303030</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#f0c23b</color>
+    <color name="holo_light_primary">#4a6bfc</color>
+    <color name="holo_light_primary_dark">#223cb0</color>
+    <color name="bright_foreground_holo_light">#742626</color>
+    <color name="black">#6581ff</color>
+    <color name="StatusBarColor">#212121</color>
+</resources>
