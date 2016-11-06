@@ -45,7 +45,7 @@ public class EventAdapter extends BaseAdapter{
         //img_eventPic.setImageResource();
         //ImageView img_eventCover = (ImageView)convertView.findViewById(R.id.img_eventCover);
         //img_eventCover.setImageResource();
-        tv_eventName.setText(eventList.get(i).geteName());
+        tv_eventName.setText(eventList.get(i).getName());
 
         return convertView;
     }

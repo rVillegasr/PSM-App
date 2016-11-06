@@ -8,10 +8,18 @@
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
-    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_invalid_password">The password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_password_mismatch">The passwords do not match</string>
+    <string name="error_invalid_credentials">Invalid credentials</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="error_every_field_required">Every field is required</string>
+    <string name="error_invalid_credit_card">The credit card number is not valid.</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
+
+    <string name="progress_dialog_logging_in_title">Logging in</string>
+    <string name="progress_dialog_logging_in_message">Wait...</string>
+
+    <string name="tab_upcoming_events">UPCOMING EVENTS</string>
+    <string name="tab_all_events">ALL EVENTS</string>
 </resources>

@@ -23,22 +23,22 @@ public class FragmentAdapter extends FragmentPagerAdapter{
     @Override
     public Fragment getItem(int position) {
         switch (position){
-            case 0:
+            case 0: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("useCustomLayout", true);
-                args.putString("asdasd", "asdfasdf");
+                args.putBoolean("all", false);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
-            case 1:
-                EventListActivity fragmentEventHeader2 = new EventListActivity();
-                Bundle args2 = new Bundle();
-                args2.putBoolean("useCustomLayout", true);
-                args2.putString("asdasd", "asdfasdf");
+            }
+            case 1: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
 
-                fragmentEventHeader2.setArguments(args2);
-                return fragmentEventHeader2;
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
             default:
                 return null;
 
@@ -49,9 +49,9 @@ public class FragmentAdapter extends FragmentPagerAdapter{
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "PROXIMOS EVENTOS";
+                return mContext.getString(R.string.tab_upcoming_events);
             case 1:
-                return "TODOS LOS EVENTOS";
+                return mContext.getString(R.string.tab_all_events);
             default:
                 return null;
         }

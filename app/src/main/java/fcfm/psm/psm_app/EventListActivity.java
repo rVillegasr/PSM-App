@@ -20,7 +20,7 @@ import fcfm.psm.psm_app.Model.Event;
 
 public class EventListActivity extends Fragment {
     List<Event> mEventList;
-    boolean mUseCustomLayout;
+    boolean showAllEvents;
     ListView lvEvents;
 
     @Nullable
@@ -35,27 +35,45 @@ public class EventListActivity extends Fragment {
         // Obtenemos los argumentos en dado caso que se pasaran a este fragmento
         //..
 
-        if(getArguments()==null)
-            mUseCustomLayout = false;
+        if(getArguments() == null)
+            showAllEvents = false;
         else
-            mUseCustomLayout = getArguments().getBoolean("useCustomLayout", false);
-        //En caso de que no encuentre la llave ponle el segundo valor
+            showAllEvents = getArguments().getBoolean("all", false);
 
         mEventList = new ArrayList<>();
-
-
 
         // Esta es una forma de obtener un objeto tipo "Bitmap" de un "ImageView"
         //BitmapDrawable bitmapDrawable = (BitmapDrawable) ivPicture.getDrawable();
         // Creamos y agregamos nuestro nuevo contacto
-        Event p = new Event("Musical",null, null);
-        Event p2 = new Event("Teatro",null, null);
-        Event p3 = new Event("cine",null, null);
-        Event p4 = new Event("cosa",null, null);
-        mEventList.add(p);
-        mEventList.add(p2);
-        mEventList.add(p3);
-        mEventList.add(p4);
+
+
+        if(showAllEvents){
+            /*
+            * TODO: Web service, obtener todos los eventos
+            * */
+            Event p = new Event("Musical",null, null);
+            Event p2 = new Event("Teatro",null, null);
+            Event p3 = new Event("cine",null, null);
+            Event p4 = new Event("cosa",null, null);
+            Event p5 = new Event("5",null, null);
+            mEventList.add(p);
+            mEventList.add(p2);
+            mEventList.add(p3);
+            mEventList.add(p4);
+            mEventList.add(p5);
+        }else{
+            /*
+            * TODO: Web service los eventos proximos
+            * */
+            Event p = new Event("Musical",null, null);
+            Event p2 = new Event("Teatro",null, null);
+            Event p5 = new Event("5",null, null);
+            mEventList.add(p);
+            mEventList.add(p2);
+            mEventList.add(p5);
+        }
+
+
 
 
         // Actualizamos el list view con el nuevo contacto
@@ -67,9 +85,12 @@ public class EventListActivity extends Fragment {
         lvEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent myIntent = new Intent(EventListActivity.this.getActivity(), CompleteEventActivity.class);
-
-                startActivity(myIntent);
+                Intent eventActivity = new Intent(EventListActivity.this.getActivity(), CompleteEventActivity.class);
+                eventActivity.putExtra("name",mEventList.get(i).getName());
+                eventActivity.putExtra("description",mEventList.get(i).getDescription());
+                eventActivity.putExtra("img",mEventList.get(i).getImg());
+                eventActivity.putExtra("cover",mEventList.get(i).getCover());
+                startActivity(eventActivity);
             }
         });
 
@@ -79,7 +100,7 @@ public class EventListActivity extends Fragment {
 
         initListViewContacts();
 
-        //updateListViewContacts();
+        //updateListView();
         return rootView;
     }
 
@@ -93,36 +114,15 @@ public class EventListActivity extends Fragment {
 
 
     private void initListViewContacts() {
-        // Si no usaremos un "CustomLayout" usamos por defecto un ArrayAdapter
-        // MUY IMPORTANTE: Este "ArrayAdapter" que estamos creando solo mostrara un texto
-        // por lo tanto si le pasamos un objeto que no sea de tipo "String" lo que va a hacer el adaptador
-        // es ir al objeto y ejecutar el metodo "toString()" que en JAVA todos los objetos tienen y si ese metodo
-        // no lo sobrecargamos tendriamos la direccion del objeto como si fuera un "texto".
-        // Mas info en clase y en el modelo "Person"
-
-
-        if(mUseCustomLayout){
-            EventAdapter adapter = new EventAdapter(mEventList);
-            lvEvents.setAdapter(adapter);
-        }
-        else {
-            ArrayAdapter<Event> adapter;
-            adapter = new ArrayAdapter<Event>(getActivity(), android.R.layout.simple_list_item_1, mEventList);
-            lvEvents.setAdapter(adapter);
-        }
+        EventAdapter adapter = new EventAdapter(mEventList);
+        lvEvents.setAdapter(adapter);
     }
 
-    private void updateListViewContacts() {
+    private void updateListView() {
         // El metodo "notifyDataSetChanged" sirve para indicarle al adaptador que los elementos que esta "controlando"
         // han cambiado o bien se a agregado/eliminado un elemento
         //..
-        //Si estamos usando el custom layout se castea a Contact y si no a ArrayAdapter en el notifySetCahnged
-        if(mUseCustomLayout){
-            ((EventAdapter)lvEvents.getAdapter()).notifyDataSetChanged();
-        }
-        else {
-            ((ArrayAdapter) lvEvents.getAdapter()).notifyDataSetChanged();
-        }
+        ((EventAdapter)lvEvents.getAdapter()).notifyDataSetChanged();
     }
 
 
