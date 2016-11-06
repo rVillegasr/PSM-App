@@ -13,9 +13,7 @@
         android:label="PSM-App"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity"
-            >
-
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,7 +27,10 @@
         <activity android:name=".ShareMomentActivity" />
         <activity android:name=".Fragments.FragmentEventFooter" />
         <activity android:name=".ChatActivity" />
-        <activity android:name=".CompleteEventActivity"></activity>
+        <activity android:name=".CompleteEventActivity" />
+        <activity android:name=".MapsActivity" />
+        <activity android:name=".WeatherActivity" />
+        <activity android:name=".MessageView"></activity>
     </application>
 
 </manifest>
