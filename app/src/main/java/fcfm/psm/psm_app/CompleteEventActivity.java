@@ -15,6 +15,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.sql.Date;
 
 import fcfm.psm.psm_app.Model.Event;
@@ -101,15 +103,8 @@ public class CompleteEventActivity extends AppCompatActivity {
 
         ratingBar.setRating(event.getRating());
 
-
-
-        /*
-        * TODO: Load Pictures with picasso
-        * img_eventPic.setImageBitmap();
-        * img_eventCover.setImageBitmap();
-        */
-
-
+        Picasso.with(this).load(event.getImgPath()).into(img_eventPic);
+        Picasso.with(this).load(event.getCoverPath()).into(img_eventCover);
 
     }
 

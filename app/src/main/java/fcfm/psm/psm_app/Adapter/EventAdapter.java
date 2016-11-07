@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import fcfm.psm.psm_app.Model.Event;
@@ -45,10 +47,13 @@ public class EventAdapter extends BaseAdapter{
         }
         TextView tv_eventName = (TextView)convertView.findViewById(R.id.tv_eventName);
         /////////Al parecer setImageResource sirve para poner imagenes a los views de imagenes
-        //ImageView img_eventPic = (ImageView)convertView.findViewById(R.id.img_eventPic);
+        ImageView img_eventPic = (ImageView)convertView.findViewById(R.id.img_eventPic);
         //img_eventPic.setImageResource();
-        //ImageView img_eventCover = (ImageView)convertView.findViewById(R.id.img_eventCover);
+        ImageView img_eventCover = (ImageView)convertView.findViewById(R.id.img_eventCover);
         //img_eventCover.setImageResource();
+
+        Picasso.with(convertView.getContext()).load(e.getImgPath()).into(img_eventPic);
+        Picasso.with(convertView.getContext()).load(e.getCoverPath()).into(img_eventCover);
 
         RatingBar ratingBar = (RatingBar)convertView.findViewById(R.id.ratingBar);
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {

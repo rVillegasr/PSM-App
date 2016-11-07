@@ -23,10 +23,11 @@ import fcfm.psm.psm_app.Adapter.FragmentAdapter;
 * -- Localizacion
 * -- Incluir lo anterior en el share de facebook
 * -- Caledario
-* -- Raiting
-* -- Integracion con Picasso
+* X Raiting
+* X Integracion con Picasso
 * -- Chat
 * -- Gestures
+*
 * + Web services
 * -- Registro
 * -- Obtener todos los eventos
