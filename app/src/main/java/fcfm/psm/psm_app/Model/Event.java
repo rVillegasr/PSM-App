@@ -15,13 +15,13 @@ public class Event {
     private float price;
     private String imgPath;
     private String coverPath;
+    private float rating;
 
     public Event() {
 
     }
 
-    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath) {
-
+    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath, float rating) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,6 +30,7 @@ public class Event {
         this.price = price;
         this.imgPath = imgPath;
         this.coverPath = coverPath;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -94,5 +95,13 @@ public class Event {
 
     public void setCoverPath(String coverPath) {
         this.coverPath = coverPath;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 }
