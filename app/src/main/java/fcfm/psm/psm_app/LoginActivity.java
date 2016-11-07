@@ -63,13 +63,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void init(){
-        btn_login = (Button)findViewById(R.id.btn_login);
-        btn_register = (Button)findViewById(R.id.btn_register);
         btn_starWfb = (Button)findViewById(R.id.btn_startWfb);
-        btn_forgottenPass = (Button)findViewById(R.id.btn_forgottenPass);
-        txt_username = (TextView)findViewById(R.id.txt_userName);
-        txt_password = (TextView)findViewById(R.id.txt_password);
-
 
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
