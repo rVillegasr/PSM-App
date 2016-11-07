@@ -53,7 +53,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         String description = intent.getStringExtra("description");
         Bitmap pic = (Bitmap)intent.getParcelableExtra("img");
         Bitmap cover = (Bitmap)intent.getParcelableExtra("cover");
-        event = new Event(name, description, pic, cover);
+        //event = new Event(name, description, pic, cover);
 
         tv_eventName.setText(event.getName());
         tv_description.setText(event.getDescription());
