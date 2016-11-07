@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -29,7 +31,6 @@
         <activity android:name=".ChatActivity" />
         <activity android:name=".CompleteEventActivity" />
         <activity android:name=".MapsActivity" />
-        <activity android:name=".WeatherActivity" />
         <activity android:name=".MessageView"></activity>
     </application>
 
