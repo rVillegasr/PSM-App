@@ -88,8 +88,9 @@ public class LoginActivity extends AppCompatActivity {
 
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         Profile profile = Profile.getCurrentProfile();
-        Log.e("Profile Id, Name", "" + profile.getId() + " " + profile.getName());
-
+        if(profile != null) {
+            Log.e("Profile Id, Name", "" + profile.getId() + " " + profile.getName());
+        }
         if(accessToken != null) {
             if( !accessToken.isExpired()) {
                 openMainActivity();
