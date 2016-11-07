@@ -122,6 +122,7 @@ public class EventListActivity extends Fragment {
         // El metodo "notifyDataSetChanged" sirve para indicarle al adaptador que los elementos que esta "controlando"
         // han cambiado o bien se a agregado/eliminado un elemento
         //..
+
         ((EventAdapter)lvEvents.getAdapter()).notifyDataSetChanged();
     }
 

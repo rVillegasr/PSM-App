@@ -3,17 +3,36 @@ package fcfm.psm.psm_app;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.FacebookSdk;
+import com.facebook.Profile;
+import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
@@ -28,12 +47,17 @@ public class LoginActivity extends AppCompatActivity {
     final String APP_SHARED_PREFS = "AppPrefs";
     final int MAIN_ACTIVITY_REQUEST = 1;
 
+    CallbackManager callbackManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
+
+        FacebookSdk.sdkInitialize(LoginActivity.this);
+        AppEventsLogger.activateApp(this);
 
         init();
     }
@@ -46,50 +70,55 @@ public class LoginActivity extends AppCompatActivity {
         txt_username = (TextView)findViewById(R.id.txt_userName);
         txt_password = (TextView)findViewById(R.id.txt_password);
 
-        final SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
-        String usernamePrefs = prefs.getString("username", "");
-        String passwordPrefs = prefs.getString("password", "");
-        Long time = prefs.getLong("timestamp", 0);
-        if(!usernamePrefs.equals("") && !passwordPrefs.equals("") && time > 0){
 
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(
+                    "fcfm.psm.psm_app",
+                    PackageManager.GET_SIGNATURES);
+            for (Signature signature : info.signatures) {
+                MessageDigest md = MessageDigest.getInstance("SHA");
+                md.update(signature.toByteArray());
+                Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+            }
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
 
-            final Timestamp now = new Timestamp(new Date().getTime());
-            long deltaTime = (now.getTime() - time) / 1000;
-            if( deltaTime < (24*60*60)){
-                //Ya estaba loggeado antes y a pasado menos de un dia desde su ultima conexion, usar las mismas credenciales
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        Profile profile = Profile.getCurrentProfile();
+        Log.e("Profile Id, Name", "" + profile.getId() + " " + profile.getName());
 
-                prefs.edit().putLong("timestamp", now.getTime()).commit();
+        if(accessToken != null) {
+            if( !accessToken.isExpired()) {
                 openMainActivity();
-                /*
-                final ProgressDialog loggingIn = new ProgressDialog(this);
-                loggingIn.setTitle("LOL");
-                loggingIn.setMessage(getString(R.string.progress_dialog_logging_in_message));
-                loggingIn.setCancelable(true);
-                loggingIn.show();
-
-                new Handler().postDelayed(new Runnable() {
+            }
+        }
+        callbackManager = CallbackManager.Factory.create();
+        LoginManager.getInstance().registerCallback(callbackManager,
+                new FacebookCallback<LoginResult>() {
                     @Override
-                    public void run() {
-                        loggingIn.dismiss();
-                        prefs.edit().putLong("timestamp", now.getTime()).commit();
+                    public void onSuccess(LoginResult loginResult) {
+                        showToast("Logged with facebook");
                         openMainActivity();
                     }
-                }, 700);
 
-                */
-                /*
-                    TODO: Login WebService
-                */
+                    @Override
+                    public void onCancel() {
+                        // App code
+                    }
 
-
-            }
-
-        }
+                    @Override
+                    public void onError(FacebookException exception) {
+                        // App code
+                    }
+                });
 
         btn_starWfb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openMainActivity();
+                LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
             }
         });
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -110,31 +139,6 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String username = txt_username.getText().toString();
-                String password = txt_password.getText().toString();
-                if(!username.equals("") && !password.equals("")){
-                    //TODO: Verificar Log in
-                    /*
-                        Login WebService
-                    */
-
-
-                    if(true /* vereficacion con exito */){
-                        SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("username", username);
-                        editor.putString("password", password);
-                        Timestamp timestamp = new Timestamp( new Date().getTime());
-                        editor.putLong("timestamp", timestamp.getTime());
-                        editor.commit();
-                        openMainActivity();
-                    }else{
-                        showToast(getString(R.string.error_invalid_credentials));
-                    }
-
-                }else{
-                    showToast(getString(R.string.error_every_field_required));
-                }
             }
         });
 
@@ -154,6 +158,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
         if(requestCode == MAIN_ACTIVITY_REQUEST) {
             SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
             SharedPreferences.Editor editor = prefs.edit();

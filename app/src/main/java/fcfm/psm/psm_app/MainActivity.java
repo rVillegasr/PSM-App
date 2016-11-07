@@ -6,7 +6,11 @@ import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
+
+import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 
 import fcfm.psm.psm_app.Adapter.FragmentAdapter;
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(exit) {
+            //LoginManager.getInstance().logOut();
             finish();
         }else{
             showToast("Tap again to exit");
