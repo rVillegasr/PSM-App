@@ -45,12 +45,11 @@ public class EventAdapter extends BaseAdapter{
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.fragment_event_head, null);
         }
+
         TextView tv_eventName = (TextView)convertView.findViewById(R.id.tv_eventName);
-        /////////Al parecer setImageResource sirve para poner imagenes a los views de imagenes
+        TextView tv_date = (TextView)convertView.findViewById(R.id.tv_date);
         ImageView img_eventPic = (ImageView)convertView.findViewById(R.id.img_eventPic);
-        //img_eventPic.setImageResource();
         ImageView img_eventCover = (ImageView)convertView.findViewById(R.id.img_eventCover);
-        //img_eventCover.setImageResource();
 
         Picasso.with(convertView.getContext()).load(e.getImgPath()).into(img_eventPic);
         Picasso.with(convertView.getContext()).load(e.getCoverPath()).into(img_eventCover);
@@ -68,6 +67,7 @@ public class EventAdapter extends BaseAdapter{
         ratingBar.setRating(e.getRating());
 
         tv_eventName.setText(e.getName());
+        tv_date.setText(e.getDate().toString());
 
         return convertView;
     }

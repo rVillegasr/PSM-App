@@ -48,6 +48,7 @@
             style="@android:style/Widget.Material.RatingBar"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintHorizontal_bias="0.01"
+            android:isIndicator="true"
             android:numStars="5"
             android:minHeight="1dp"
             android:layout_marginTop="4dp"

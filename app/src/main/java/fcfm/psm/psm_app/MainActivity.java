@@ -18,10 +18,10 @@ import fcfm.psm.psm_app.Adapter.FragmentAdapter;
 /*
 * TODO LIST:
 * + Logic
-* -- Share con facebook
+* X Share con facebook
 * -- Mapa
 * -- Localizacion
-* -- Incluir lo anterior en el share de facebook
+* N Incluir lo anterior en el share de facebook
 * -- Caledario
 * X Raiting
 * X Integracion con Picasso

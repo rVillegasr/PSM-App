@@ -8,6 +8,9 @@
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
 
     <application
         android:allowBackup="true"
@@ -29,7 +32,7 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ForgottenPasswordActivity" />
         <activity android:name=".ShareMomentActivity" />
-        <activity android:name=".Fragments.FragmentEventFooter" />
+        <!--<activity android:name=".Fragments.FragmentEventFooter" /> -->
         <activity android:name=".ChatActivity" />
         <activity android:name=".CompleteEventActivity" />
         <activity android:name=".MapsActivity" />
@@ -52,11 +55,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
+        <provider android:authorities="com.facebook.app.FacebookContentProvider974334052713236"
+            android:name="com.facebook.FacebookContentProvider"
+            android:exported="true">
+        </provider>
     </application>
-
-    <provider android:authorities="com.facebook.app.FacebookContentProvider974334052713236"
-        android:name="com.facebook.FacebookContentProvider"
-        android:exported="true" />
 
 </manifest>

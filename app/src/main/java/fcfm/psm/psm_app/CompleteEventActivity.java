@@ -29,6 +29,7 @@ public class CompleteEventActivity extends AppCompatActivity {
     ImageView img_eventPic;
     ImageView img_eventCover;
     TextView tv_eventName;
+    TextView tv_miniDate;
     RatingBar ratingBar;
 
     //Footer
@@ -40,6 +41,8 @@ public class CompleteEventActivity extends AppCompatActivity {
     ImageButton btn_openChat;
     ImageButton btn_shareMom;
 
+    final int SHARE = 100;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,6 +51,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         img_eventPic = (ImageView) findViewById(R.id.img_eventPic);
         img_eventCover = (ImageView) findViewById(R.id.img_eventCover);
         tv_eventName = (TextView) findViewById(R.id.tv_eventName);
+        tv_miniDate = (TextView)findViewById(R.id.tv_date);
         ratingBar = (RatingBar)findViewById(R.id.ratingBar);
 
         tv_description = (TextView) findViewById(R.id.tv_description);
@@ -69,7 +73,8 @@ public class CompleteEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent share = new Intent(CompleteEventActivity.this, ShareMomentActivity.class);
-                startActivity(share);
+                share.putExtra("img", event.getCoverPath());
+                startActivityForResult(share,SHARE);
             }
         });
 
@@ -98,6 +103,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         tv_description.setText(event.getDescription());
         tv_eventAddress.setText(event.getAddress());
         tv_eventDate.setText(event.getDate().toString());
+        tv_miniDate.setText(event.getDate().toString());
 
         tv_eventPrice.setText("" + event.getPrice());
 
@@ -106,6 +112,14 @@ public class CompleteEventActivity extends AppCompatActivity {
         Picasso.with(this).load(event.getImgPath()).into(img_eventPic);
         Picasso.with(this).load(event.getCoverPath()).into(img_eventCover);
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == SHARE && resultCode == RESULT_OK){
+            showToast("You shared this event");
+        }
     }
 
     void showToast(String msg) {
