@@ -15,6 +15,49 @@ import com.facebook.login.LoginManager;
 import fcfm.psm.psm_app.Adapter.FragmentAdapter;
 
 
+/*
+* TODO LIST:
+* + Logic
+* -- Share con facebook
+* -- Mapa
+* -- Localizacion
+* -- Incluir lo anterior en el share de facebook
+* -- Caledario
+* -- Raiting
+* -- Integracion con Picasso
+* -- Chat
+* -- Gestures
+* + Web services
+* -- Registro
+* -- Obtener todos los eventos
+* --
+* + Base de datos
+* -- Modificar usario: Solo guardar id usuario y nombre;
+* -- Hacer scripts para crear la base en MySQL
+* -- Stored procedures para los web services.
+*
+* + Diseño
+* -- Manejar archivo de idiomas
+* -- Usar valores del strings.xml en todos los controles
+* -- Logo para log in
+* -- Dejar solo el boton de login
+* -- Quitar el boton del calendario
+* -- Poner fecha del evento en el header
+* -- Hacer mas pequeño el boton flotante
+*
+* Extra:
+* + Logic:
+* -- Mostrar comentarios
+* + Web services
+* -- Obtener comentarios
+* + Base de datos
+* -- Crear tabla de comentarios
+* + Diseño:
+* -- Comentarios en los eventos
+*
+* */
+
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
