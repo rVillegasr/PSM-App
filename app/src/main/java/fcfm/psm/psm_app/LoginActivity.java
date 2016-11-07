@@ -37,12 +37,7 @@ import java.util.Date;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button btn_login;
-    Button btn_register;
     Button btn_starWfb;
-    Button btn_forgottenPass;
-    TextView txt_username;
-    TextView txt_password;
 
     final String APP_SHARED_PREFS = "AppPrefs";
     final int MAIN_ACTIVITY_REQUEST = 1;
@@ -114,26 +109,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
-            }
-        });
-        btn_register.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent reg = new Intent(LoginActivity.this, RegisterActivity.class);
-                startActivity(reg);
-            }
-        });
-        btn_forgottenPass.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent fgPass = new Intent(LoginActivity.this, ForgottenPasswordActivity.class);
-                startActivity(fgPass);
-            }
-        });
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
             }
         });
 
