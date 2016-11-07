@@ -29,7 +29,7 @@
     <ImageView
         android:layout_width="0dp"
         android:layout_height="253dp"
-        android:id="@+id/relativeLayout3"
+        android:id="@+id/img_logo"
         android:src="@mipmap/ic_launcher"
         android:longClickable="false"
         android:layout_marginTop="16dp"
