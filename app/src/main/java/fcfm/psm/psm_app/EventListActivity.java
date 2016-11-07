@@ -13,6 +13,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +65,7 @@ public class EventListActivity extends Fragment {
 
                         for(int i=0; i< events.size(); i++){
                             event = events.get(i);
+                            //event.setDate( new Date(new java.util.Date().getTime()) );
                             mEventList.add(event);
                         }
 
@@ -99,12 +101,20 @@ public class EventListActivity extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                // Intent eventActivity = new Intent(getActivity(), CompleteEventActivity.class);
-                // eventActivity.putExtra("name",mEventList.get(i).getName());
-                // eventActivity.putExtra("description",mEventList.get(i).getDescription());
-                // eventActivity.putExtra("img",mEventList.get(i).getImg());
-                // eventActivity.putExtra("cover",mEventList.get(i).getCover());
-                // startActivity(eventActivity);
+                Event e = mEventList.get(i);
+
+                Intent intent = new Intent(getActivity(), CompleteEventActivity.class);
+                intent.putExtra("id", e.getId());
+                intent.putExtra("name", e.getName());
+                intent.putExtra("description", e.getDescription());
+                intent.putExtra("img", e.getImgPath());
+                intent.putExtra("cover", e.getCoverPath());
+                intent.putExtra("date", e.getDate().getTime());
+                intent.putExtra("address", e.getAddress());
+                intent.putExtra("price", e.getPrice());
+                intent.putExtra("rating", 3.5);
+                //intent.putExtra("rating", e.getRating());
+                startActivity(intent);
             }
         });
 

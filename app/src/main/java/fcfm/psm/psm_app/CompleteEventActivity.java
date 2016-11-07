@@ -7,9 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
+
+import java.sql.Date;
 
 import fcfm.psm.psm_app.Model.Event;
 
@@ -21,12 +26,16 @@ public class CompleteEventActivity extends AppCompatActivity {
     ImageView img_eventPic;
     ImageView img_eventCover;
     TextView tv_eventName;
+    RatingBar ratingBar;
 
     //Footer
     TextView tv_description;
     TextView tv_eventDate;
     TextView tv_eventPrice;
     TextView tv_eventAddress;
+
+    ImageButton btn_openChat;
+    ImageButton btn_shareMom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,26 +45,58 @@ public class CompleteEventActivity extends AppCompatActivity {
         img_eventPic = (ImageView) findViewById(R.id.img_eventPic);
         img_eventCover = (ImageView) findViewById(R.id.img_eventCover);
         tv_eventName = (TextView) findViewById(R.id.tv_eventName);
+        ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+
         tv_description = (TextView) findViewById(R.id.tv_description);
         tv_eventDate = (TextView) findViewById(R.id.tv_eventDate);
         tv_eventPrice = (TextView) findViewById(R.id.tv_eventPrice);
         tv_eventAddress = (TextView) findViewById(R.id.tv_eventAddress);
 
-        /*
-        *       eventActivity.putExtra("name",mEventList.get(i).getName());
-                eventActivity.putExtra("description",mEventList.get(i).getDescription());
-                eventActivity.putExtra("img",mEventList.get(i).getImg());
-                eventActivity.putExtra("cover",mEventList.get(i).getCover());
-         */
+        btn_openChat = (ImageButton) findViewById(R.id.btn_openChat);
+        btn_shareMom = (ImageButton) findViewById(R.id.btn_shareMom);
+
+        btn_openChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent chat = new Intent(CompleteEventActivity.this, ChatActivity.class);
+                startActivity(chat);
+            }
+        });
+        btn_shareMom.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent share = new Intent(CompleteEventActivity.this, ShareMomentActivity.class);
+                startActivity(share);
+            }
+        });
 
         Intent intent = getIntent();
+        int id = intent.getIntExtra("id", 0);
         String name = intent.getStringExtra("name");
         String description = intent.getStringExtra("description");
-        Bitmap pic = (Bitmap)intent.getParcelableExtra("img");
-        Bitmap cover = (Bitmap)intent.getParcelableExtra("cover");
-        //event = new Event(name, description, pic, cover);
+        String imgPath = intent.getStringExtra("img");
+        String coverPath = intent.getStringExtra("cover");
+        Date date = new Date( intent.getLongExtra("date", -1));
+        String address = intent.getStringExtra("address");
+        float price = intent.getFloatExtra("price", 0);
+        float rating = intent.getFloatExtra("rating", 0);
+        event = new Event(id, name, description, date, address, price, imgPath, coverPath );
 
         tv_eventName.setText(event.getName());
         tv_description.setText(event.getDescription());
+        tv_eventAddress.setText(event.getAddress());
+        tv_eventDate.setText(event.getDate().toString());
+
+        tv_eventPrice.setText("" + event.getPrice());
+        ratingBar.setRating(rating);
+
+        /*
+        * TODO: Load Pictures with picasso
+        * img_eventPic.setImageBitmap();
+        * img_eventCover.setImageBitmap();
+        */
+
+
+
     }
 }

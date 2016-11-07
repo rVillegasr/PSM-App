@@ -27,23 +27,6 @@ public class FragmentEventFooter extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_event_footer, null);
-        btn_openChat = (Button)rootView.findViewById(R.id.btn_openChat);
-        btn_shareMom = (Button)rootView.findViewById(R.id.btn_shareMom);
-
-        btn_openChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent chat = new Intent(getActivity(), ChatActivity.class);
-                startActivity(chat);
-            }
-        });
-        btn_shareMom.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent share = new Intent(getActivity(), ShareMomentActivity.class);
-                startActivity(share);
-            }
-        });
         return rootView;
     }
     public void init(){
