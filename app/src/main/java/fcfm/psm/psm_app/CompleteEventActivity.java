@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.sql.Date;
 
@@ -70,6 +71,15 @@ public class CompleteEventActivity extends AppCompatActivity {
             }
         });
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                /*
+                * TODO: Web service rating
+                * */
+            }
+        });
+
         Intent intent = getIntent();
         int id = intent.getIntExtra("id", 0);
         String name = intent.getStringExtra("name");
@@ -80,7 +90,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         String address = intent.getStringExtra("address");
         float price = intent.getFloatExtra("price", 0);
         float rating = intent.getFloatExtra("rating", 0);
-        event = new Event(id, name, description, date, address, price, imgPath, coverPath );
+        event = new Event(id, name, description, date, address, price, imgPath, coverPath, rating);
 
         tv_eventName.setText(event.getName());
         tv_description.setText(event.getDescription());
@@ -88,7 +98,10 @@ public class CompleteEventActivity extends AppCompatActivity {
         tv_eventDate.setText(event.getDate().toString());
 
         tv_eventPrice.setText("" + event.getPrice());
-        ratingBar.setRating(rating);
+
+        ratingBar.setRating(event.getRating());
+
+
 
         /*
         * TODO: Load Pictures with picasso
@@ -98,5 +111,9 @@ public class CompleteEventActivity extends AppCompatActivity {
 
 
 
+    }
+
+    void showToast(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 
 import java.sql.Date;
@@ -55,8 +56,12 @@ public class EventListActivity extends Fragment {
             @Override
             public void onWorkFinish(Object data) {
                 String eventosJSON = (String) data;
+
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
                 TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
-                final List<Event> events = new Gson().fromJson(eventosJSON, token.getType());
+
+                final List<Event> events = gson.fromJson(eventosJSON, token.getType());
 
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -112,8 +117,7 @@ public class EventListActivity extends Fragment {
                 intent.putExtra("date", e.getDate().getTime());
                 intent.putExtra("address", e.getAddress());
                 intent.putExtra("price", e.getPrice());
-                intent.putExtra("rating", 3.5);
-                //intent.putExtra("rating", e.getRating());
+                intent.putExtra("rating", e.getRating());
                 startActivity(intent);
             }
         });

@@ -1,10 +1,12 @@
 package fcfm.psm.psm_app.Adapter;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.util.List;
@@ -35,6 +37,8 @@ public class EventAdapter extends BaseAdapter{
     @Override
     public View getView(int i, View convertView, ViewGroup parent) {
 
+        Event e = eventList.get(i);
+
         if(convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(parent.getContext());
             convertView = inflater.inflate(R.layout.fragment_event_head, null);
@@ -45,7 +49,20 @@ public class EventAdapter extends BaseAdapter{
         //img_eventPic.setImageResource();
         //ImageView img_eventCover = (ImageView)convertView.findViewById(R.id.img_eventCover);
         //img_eventCover.setImageResource();
-        tv_eventName.setText(eventList.get(i).getName());
+
+        RatingBar ratingBar = (RatingBar)convertView.findViewById(R.id.ratingBar);
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+
+                /*
+                * TODO: Web service de rating
+                * */
+            }
+        });
+        ratingBar.setRating(e.getRating());
+
+        tv_eventName.setText(e.getName());
 
         return convertView;
     }
