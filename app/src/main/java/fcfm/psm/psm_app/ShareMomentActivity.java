@@ -161,6 +161,8 @@ public class ShareMomentActivity extends AppCompatActivity {
                             .addPhoto(photo)
                             .build();
 
+                    //TODO: Agregar un boton para elegir en donde lo quieres compartir
+                    
                     shareDialog.show(content);
                     //messageDialog.show(content);
                 }
