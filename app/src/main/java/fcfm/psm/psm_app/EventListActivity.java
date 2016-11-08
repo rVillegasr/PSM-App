@@ -107,7 +107,6 @@ public class EventListActivity extends Fragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Event e = mEventList.get(i);
-
                 Intent intent = new Intent(getActivity(), CompleteEventActivity.class);
                 intent.putExtra("id", e.getId());
                 intent.putExtra("name", e.getName());
@@ -118,6 +117,7 @@ public class EventListActivity extends Fragment {
                 intent.putExtra("address", e.getAddress());
                 intent.putExtra("price", e.getPrice());
                 intent.putExtra("rating", e.getRating());
+                intent.putExtra("category", e.getCategory());
                 startActivity(intent);
             }
         });

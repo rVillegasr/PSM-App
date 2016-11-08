@@ -61,7 +61,7 @@
             android:layout_height="120dp"
             android:id="@+id/img_eventCover"
             android:src="@mipmap/ejemplo"
-            android:scaleType="fitXY"
+            android:scaleType="centerCrop"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

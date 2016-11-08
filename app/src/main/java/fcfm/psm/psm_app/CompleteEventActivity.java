@@ -109,7 +109,8 @@ public class CompleteEventActivity extends AppCompatActivity {
         String address = intent.getStringExtra("address");
         float price = intent.getFloatExtra("price", 0);
         float rating = intent.getFloatExtra("rating", 0);
-        event = new Event(id, name, description, date, address, price, imgPath, coverPath, rating);
+        String category = intent.getStringExtra("category");
+        event = new Event(id, name, description, date, address, price, imgPath, coverPath, rating,category);
 
         tv_eventName.setText(event.getName());
         tv_description.setText(event.getDescription());

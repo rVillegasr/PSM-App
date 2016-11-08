@@ -16,12 +16,10 @@ public class Event {
     private String imgPath;
     private String coverPath;
     private float rating;
+    private String category;
+    //private int following;
 
-    public Event() {
-
-    }
-
-    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath, float rating) {
+    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath, float rating, String category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -31,6 +29,20 @@ public class Event {
         this.imgPath = imgPath;
         this.coverPath = coverPath;
         this.rating = rating;
+        this.category = category;
+    }
+
+    public Event() {
+
+
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public int getId() {

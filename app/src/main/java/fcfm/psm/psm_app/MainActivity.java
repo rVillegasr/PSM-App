@@ -23,18 +23,18 @@ import fcfm.psm.psm_app.Hardware.ShakeListener;
 /*
 * + Logic
 * X Share con facebook
-* -- Mapa
-* -- Localizacion
+* X Mapa
+* X Localizacion
 * N Incluir lo anterior en el share de facebook
 * -- Caledario
 * X Raiting
 * X Integracion con Picasso
 * -- Chat
 * -- Gestures
+* -- Obtener los eventos por categoria
 *
 * + Web services
-* -- Registro
-* -- Obtener todos los eventos
+* X Obtener todos los eventos
 * --
 * + Base de datos
 * -- Modificar usario: Solo guardar id usuario y nombre;
@@ -42,13 +42,13 @@ import fcfm.psm.psm_app.Hardware.ShakeListener;
 * -- Stored procedures para los web services.
 *
 * + Diseño
-* -- Manejar archivo de idiomas
-* -- Usar valores del strings.xml en todos los controles
+* X Manejar archivo de idiomas
+* X Usar valores del strings.xml en todos los controles
 * -- Logo para log in
-* -- Dejar solo el boton de login
-* -- Quitar el boton del calendario
-* -- Poner fecha del evento en el header
-* -- Hacer mas pequeño el boton flotante
+* X Dejar solo el boton de login
+* X Quitar el boton del calendario
+* X Poner fecha del evento en el header
+* X Hacer mas pequeño el boton flotante
 *
 * Extra:
 * + Logic:
