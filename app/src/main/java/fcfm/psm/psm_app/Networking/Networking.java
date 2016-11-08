@@ -67,7 +67,7 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
 
             case "sendChat":
             {
-                responseString = SendChat("nombre", "mensaje");
+                responseString = SendChat((String) params[3], (String) params[4]);
                 NetCallback netCallback = (NetCallback) params[2];
                 netCallback.onWorkFinish(responseString);
             } break;
@@ -159,10 +159,7 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
 
     private String SendChat(String name, String message){
         //Url de la peticion
-        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?";
-
-        //Parametros a enviar en la peticion
-        String postParams = "&function=send&name=" + name + "&message=" + message;
+        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?function=send&name=" + name + "&message=" + message;
 
         //La respuesta del servidor
         String responseString = "";
@@ -190,15 +187,6 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
 
             // setRequestProperty: Investigar Mime, Content-Type al hacer una peticion (HTML, PAPW);
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            // setFixedLengthStreamingMode: Se especifica el tamano del "request" (lo que se enviara al servidor
-            conn.setFixedLengthStreamingMode(postParams.getBytes().length);
-
-            // getOutputStream: Nos da un stream de datos para comenzar a escribir en el lo que se envia al servidor
-            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
-            out.write(postParams.getBytes());
-            out.flush();
-            out.close();
 
             // Codigo de respuesta
             int responseCode = conn.getResponseCode();
