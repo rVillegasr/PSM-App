@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
     private ShakeListener mShakeDetector;
 
     final String APP_SHARED_PREFS = "AppPrefs";
+    final int CALENDAR = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,16 +102,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onShake(int count) {
-				/*
-				 * Aqui va la logica de cuando agite el celular
-				 */
-                showToast("" + count + " testing");
+                SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
+                prefs.edit().putInt("selectedTab", viewPager.getCurrentItem()).commit();
+                finish();
             }
         });
         ///////////////////////////////////////////////////
 
 
-        new Networking(this).execute("getEventos", "getEventos", new NetCallback() {
+        new Networking(this).execute("eventos", "getEventos", new NetCallback() {
 
             @Override
             public void onWorkFinish(Object data) {
@@ -121,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
 
                 final List<Event> events = gson.fromJson(eventosJSON, token.getType());
-                EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
-                for(Event event : events){
-                    eventCRUD.createEvent(event);
+
+                if(events != null){
+                    EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
+                    for(Event event : events){
+                        eventCRUD.createEvent(event);
+                    }
                 }
             }
         });
@@ -152,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent calendar = new Intent(MainActivity.this, CalendarActivity.class);
-                startActivity(calendar);
+                startActivityForResult(calendar, CALENDAR);
             }
         });
 
@@ -190,6 +193,16 @@ public class MainActivity extends AppCompatActivity {
             }, 3 * 1000);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == CALENDAR && resultCode == RESULT_OK){
+            int id = data.getIntExtra("id", -1);
+
+        }
+    }
+
     void showToast(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }

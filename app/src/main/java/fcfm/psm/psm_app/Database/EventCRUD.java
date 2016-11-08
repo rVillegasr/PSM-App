@@ -52,7 +52,7 @@ public class EventCRUD extends SQLHelper{
             values.put(COVER, event.getCoverPath());
             values.put(PRICE, event.getPrice());
             values.put(DATE, event.getDate().getTime());
-            values.put(CATEGORY, "ART & CULTURE"); //TODO:CAMBIAR
+            values.put(CATEGORY, event.getCategory());
             values.put(ADDRESS, event.getAddress());
             values.put(RATING, event.getRating());
             values.put(FOLLOWING, 0); //TODO:CAMBIAR
