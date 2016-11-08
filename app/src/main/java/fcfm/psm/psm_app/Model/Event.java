@@ -17,9 +17,12 @@ public class Event {
     private String coverPath;
     private float rating;
     private String category;
-    //private int following;
+    private int following;
 
-    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath, float rating, String category) {
+
+    public Event() {}
+
+    public Event(int id, String name, String description, Date date, String address, float price, String imgPath, String coverPath, float rating, String category, int following) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -30,11 +33,15 @@ public class Event {
         this.coverPath = coverPath;
         this.rating = rating;
         this.category = category;
+        this.following = following;
     }
 
-    public Event() {
+    public int getFollowing() {
+        return following;
+    }
 
-
+    public void setFollowing(int following) {
+        this.following = following;
     }
 
     public String getCategory() {

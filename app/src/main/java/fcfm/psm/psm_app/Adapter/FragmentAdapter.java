@@ -5,6 +5,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.view.ViewGroup;
+
+import java.util.HashMap;
 
 import fcfm.psm.psm_app.EventListActivity;
 import fcfm.psm.psm_app.R;
@@ -15,9 +18,11 @@ import fcfm.psm.psm_app.R;
 public class FragmentAdapter extends FragmentPagerAdapter{
     Context mContext;
 
+
     public FragmentAdapter(Context mContext, FragmentManager fm) {
         super(fm);
         this.mContext = mContext;
+
     }
 
     @Override
@@ -26,7 +31,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 0: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", false);
+                args.putString("category", EventListActivity.CATEGORY_FOLLOWING);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -34,7 +39,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 1: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_ALL);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -42,7 +47,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 2: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_ART_AND_CULTURE);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -50,7 +55,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 3: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_MUSIC);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -58,7 +63,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 4: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_SCIENCE_AND_TECNOLOGY);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -66,7 +71,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 5: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_SPORTS);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -74,7 +79,7 @@ public class FragmentAdapter extends FragmentPagerAdapter{
             case 6: {
                 EventListActivity fragmentEventHeader = new EventListActivity();
                 Bundle args = new Bundle();
-                args.putBoolean("all", true);
+                args.putString("category", EventListActivity.CATEGORY_THEATER);
 
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
@@ -106,9 +111,10 @@ public class FragmentAdapter extends FragmentPagerAdapter{
                 return null;
         }
     }
-
     @Override
     public int getCount() {
         return 7;
     }
+
+
 }

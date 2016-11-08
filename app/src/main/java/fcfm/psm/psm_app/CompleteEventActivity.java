@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -19,6 +20,7 @@ import com.squareup.picasso.Picasso;
 
 import java.sql.Date;
 
+import fcfm.psm.psm_app.Database.EventCRUD;
 import fcfm.psm.psm_app.Model.Event;
 
 public class CompleteEventActivity extends AppCompatActivity {
@@ -41,8 +43,15 @@ public class CompleteEventActivity extends AppCompatActivity {
     ImageButton btn_openChat;
     ImageButton btn_shareMom;
     ImageButton btn_maps;
+    Button btn_follow;
 
     final int SHARE = 100;
+
+    int followEvent = 0;
+
+    final public static int NO_EVENT = 0;
+    final public static int EVENT_FOLLOW = 1;
+    final public static int EVENT_UNFOLLOW = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,9 +60,9 @@ public class CompleteEventActivity extends AppCompatActivity {
 
         img_eventPic    = (ImageView) findViewById(R.id.img_eventPic);
         img_eventCover  = (ImageView) findViewById(R.id.img_eventCover);
-        tv_eventName    = (TextView) findViewById(R.id.tv_eventName);
-        tv_miniDate     = (TextView) findViewById(R.id.tv_date);
-        ratingBar       = (RatingBar)findViewById(R.id.ratingBar);
+        tv_eventName    = (TextView)  findViewById(R.id.tv_eventName);
+        tv_miniDate     = (TextView)  findViewById(R.id.tv_date);
+        ratingBar       = (RatingBar) findViewById(R.id.ratingBar);
 
         tv_description  = (TextView) findViewById(R.id.tv_description);
         tv_eventDate    = (TextView) findViewById(R.id.tv_eventDate);
@@ -63,6 +72,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         btn_maps        = (ImageButton) findViewById(R.id.btn_maps);
         btn_openChat    = (ImageButton) findViewById(R.id.btn_openChat);
         btn_shareMom    = (ImageButton) findViewById(R.id.btn_shareMom);
+        btn_follow      = (Button)      findViewById(R.id.btn_follow);
 
         btn_maps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,12 +100,18 @@ public class CompleteEventActivity extends AppCompatActivity {
             }
         });
 
-        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+        btn_follow.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                /*
-                * TODO: Web service rating
-                * */
+            public void onClick(View view) {
+                if(event.getFollowing() == 0) {
+                    new EventCRUD(CompleteEventActivity.this).follow(event.getId());
+                    showToast("Now you follow this event");
+                    followEvent = EVENT_FOLLOW;
+                }else{
+                    new EventCRUD(CompleteEventActivity.this).unfollow(event.getId());
+                    showToast("You no longer follow this event");
+                    followEvent = EVENT_UNFOLLOW;
+                }
             }
         });
 
@@ -110,7 +126,8 @@ public class CompleteEventActivity extends AppCompatActivity {
         float price = intent.getFloatExtra("price", 0);
         float rating = intent.getFloatExtra("rating", 0);
         String category = intent.getStringExtra("category");
-        event = new Event(id, name, description, date, address, price, imgPath, coverPath, rating,category);
+        int following = intent.getIntExtra("following", 0);
+        event = new Event(id, name, description, date, address, price, imgPath, coverPath, rating,category, following);
 
         tv_eventName.setText(event.getName());
         tv_description.setText(event.getDescription());
@@ -133,6 +150,15 @@ public class CompleteEventActivity extends AppCompatActivity {
         if(requestCode == SHARE && resultCode == RESULT_OK){
             showToast("You shared this event");
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent data = new Intent();
+        data.putExtra("id", event.getId());
+        data.putExtra("followEvent", followEvent);
+        setResult(RESULT_OK, data);
+        finish();
     }
 
     void showToast(String msg) {

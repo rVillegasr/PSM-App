@@ -62,6 +62,30 @@ public class EventCRUD extends SQLHelper{
 
     }
 
+    public void follow(int id){
+        Event event = null;
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(FOLLOWING, 1);
+        String where = ID + " = " + id;
+        db.update(TABLE_NAME, values, where, null);
+
+        db.close();
+    }
+
+    public void unfollow(int id){
+        Event event = null;
+        SQLiteDatabase db = getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(FOLLOWING, 0);
+        String where = ID + " = " + id;
+        db.update(TABLE_NAME, values, where, null);
+
+        db.close();
+    }
+
     public Event readEvent(int id){
         Event event = null;
         SQLiteDatabase db = getWritableDatabase();
@@ -79,8 +103,9 @@ public class EventCRUD extends SQLHelper{
             String category     = cursor.getString(cursor.getColumnIndex(CATEGORY));
             String address      = cursor.getString(cursor.getColumnIndex(ADDRESS));
             float rating        = cursor.getInt(cursor.getColumnIndex(RATING));
+            int following       = cursor.getInt(cursor.getColumnIndex(FOLLOWING));
             cursor.close();
-            event = new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category);
+            event = new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category, following);
         }
         db.close();
         return event;
@@ -104,8 +129,9 @@ public class EventCRUD extends SQLHelper{
                 String category     = cursor.getString(cursor.getColumnIndex(CATEGORY));
                 String address      = cursor.getString(cursor.getColumnIndex(ADDRESS));
                 float rating        = cursor.getInt(cursor.getColumnIndex(RATING));
+                int following       = cursor.getInt(cursor.getColumnIndex(FOLLOWING));
 
-                event.add( new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category));
+                event.add( new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category, following));
                 cursor.moveToNext();
             }
         }
@@ -113,4 +139,63 @@ public class EventCRUD extends SQLHelper{
         db.close();
         return event;
     }
+
+    public List<Event> readEvents(String category){
+        List<Event> event = new ArrayList<>();
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + CATEGORY + " = '" + category + "'",null);
+
+        if (cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id              = cursor.getInt(cursor.getColumnIndex(ID));
+                String name         = cursor.getString(cursor.getColumnIndex(NAME));
+                String description  = cursor.getString(cursor.getColumnIndex(DESCRIPTION));
+                String imagePath    = cursor.getString(cursor.getColumnIndex(IMAGE));
+                String coverPath    = cursor.getString(cursor.getColumnIndex(COVER));
+                int price           = cursor.getInt(cursor.getColumnIndex(PRICE));
+                long date           = cursor.getLong(cursor.getColumnIndex(DATE));
+                String cat          = cursor.getString(cursor.getColumnIndex(CATEGORY));
+                String address      = cursor.getString(cursor.getColumnIndex(ADDRESS));
+                float rating        = cursor.getInt(cursor.getColumnIndex(RATING));
+                int following       = cursor.getInt(cursor.getColumnIndex(FOLLOWING));
+
+                event.add( new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category, following));
+                cursor.moveToNext();
+            }
+        }
+
+        db.close();
+        return event;
+    }
+
+    public List<Event> readEvents(int following){
+        List<Event> event = new ArrayList<>();
+        SQLiteDatabase db = getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME + " WHERE " + FOLLOWING + " = " + following,null);
+
+        if (cursor.moveToFirst()){
+            while (!cursor.isAfterLast()){
+                int id              = cursor.getInt(cursor.getColumnIndex(ID));
+                String name         = cursor.getString(cursor.getColumnIndex(NAME));
+                String description  = cursor.getString(cursor.getColumnIndex(DESCRIPTION));
+                String imagePath    = cursor.getString(cursor.getColumnIndex(IMAGE));
+                String coverPath    = cursor.getString(cursor.getColumnIndex(COVER));
+                int price           = cursor.getInt(cursor.getColumnIndex(PRICE));
+                long date           = cursor.getLong(cursor.getColumnIndex(DATE));
+                String category     = cursor.getString(cursor.getColumnIndex(CATEGORY));
+                String address      = cursor.getString(cursor.getColumnIndex(ADDRESS));
+                float rating        = cursor.getInt(cursor.getColumnIndex(RATING));
+                int follow       = cursor.getInt(cursor.getColumnIndex(FOLLOWING));
+
+                event.add( new Event(id, name, description, new Date(date), address, price, imagePath, coverPath, rating, category, following));
+                cursor.moveToNext();
+            }
+        }
+
+        db.close();
+        return event;
+    }
+
 }

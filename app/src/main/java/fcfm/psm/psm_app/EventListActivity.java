@@ -25,10 +25,23 @@ import fcfm.psm.psm_app.Model.Event;
 import fcfm.psm.psm_app.Model.NetCallback;
 import fcfm.psm.psm_app.Networking.Networking;
 
+import static android.app.Activity.RESULT_OK;
+
 public class EventListActivity extends Fragment {
     List<Event> mEventList;
-    boolean showAllEvents;
+    String category;
     ListView lvEvents;
+
+    final public static String CATEGORY_FOLLOWING             = "FOLLOWING";
+    final public static String CATEGORY_ALL                   = "ALL";
+    final public static String CATEGORY_ART_AND_CULTURE       = "ART & CULTURE";
+    final public static String CATEGORY_MUSIC                 = "MUSIC";
+    final public static String CATEGORY_SCIENCE_AND_TECNOLOGY = "SCIENCE & TECNOLOGY";
+    final public static String CATEGORY_THEATER               = "THEATER";
+    final public static String CATEGORY_SPORTS                = "SPORTS";
+
+    final public static int COMPLETE_EVENT                    = 100;
+
 
     @Nullable
     @Override
@@ -42,36 +55,66 @@ public class EventListActivity extends Fragment {
         // Obtenemos los argumentos en dado caso que se pasaran a este fragmento
         //..
         if(getArguments() == null)
-            showAllEvents = false;
+            category = null;
         else
-            showAllEvents = getArguments().getBoolean("all", false);
+            category = getArguments().getString("category");
 
         mEventList = new ArrayList<>();
 
         initListViewEvents();
 
         EventCRUD eventCRUD = new EventCRUD(getContext());
-        List<Event> events = eventCRUD.readEvents();
-        if(events != null) {
-            for (Event event : events) {
-                mEventList.add(event);
-            }
-            updateListView();
+        List<Event> events;
+
+        //TODO: Hacer una funcion en el CRUD que traiga los eventos por categoria
+
+        switch (category){
+            case CATEGORY_FOLLOWING:
+                events = eventCRUD.readEvents(1);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_ALL:
+                events = eventCRUD.readEvents();
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_ART_AND_CULTURE:
+                events = eventCRUD.readEvents(CATEGORY_ART_AND_CULTURE);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_MUSIC:
+                events = eventCRUD.readEvents(CATEGORY_MUSIC);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_SCIENCE_AND_TECNOLOGY:
+                events = eventCRUD.readEvents(CATEGORY_SCIENCE_AND_TECNOLOGY);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_THEATER:
+                events = eventCRUD.readEvents(CATEGORY_THEATER);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            case CATEGORY_SPORTS:
+                events = eventCRUD.readEvents(CATEGORY_SPORTS);
+                for (Event event : events) {
+                    mEventList.add(event);
+                }
+                break;
+            default:
+                break;
         }
-        if(showAllEvents){
-            /*
-            * TODO: Web service, obtener todos los eventos
-            * */
-
-
-        }else{
-            /*
-            * TODO: Web service los eventos proximos
-            * */
-        }
-
-
-
+        updateListView();
 
         // Actualizamos el list view con el nuevo contacto
 
@@ -95,13 +138,11 @@ public class EventListActivity extends Fragment {
                 intent.putExtra("price", e.getPrice());
                 intent.putExtra("rating", e.getRating());
                 intent.putExtra("category", e.getCategory());
-                startActivity(intent);
+                intent.putExtra("following", e.getFollowing());
+
+                startActivityForResult(intent, COMPLETE_EVENT);
             }
         });
-
-
-        // Inicializamos por primera vez el listview de los contactos
-        //..
 
 
         //updateListView();
@@ -112,8 +153,17 @@ public class EventListActivity extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // Previamente especificamos que 1 es para el intent de la camara
-        // y si el "resultCode" es OK tenemos la imagen tomada por el usuario
+
+        if(requestCode == EventListActivity.COMPLETE_EVENT && resultCode == RESULT_OK){
+
+            if(category == CATEGORY_FOLLOWING) {
+                int event = data.getIntExtra("followEvent", 0);
+                int id = data.getIntExtra("id", 0);
+                if (event == CompleteEventActivity.EVENT_FOLLOW || event == CompleteEventActivity.EVENT_UNFOLLOW) {
+                    updateEvent(id);
+                }
+            }
+        }
     }
 
 
@@ -123,10 +173,25 @@ public class EventListActivity extends Fragment {
     }
 
     private void updateListView() {
-        // El metodo "notifyDataSetChanged" sirve para indicarle al adaptador que los elementos que esta "controlando"
-        // han cambiado o bien se a agregado/eliminado un elemento
-        //..
-
         ((EventAdapter)lvEvents.getAdapter()).notifyDataSetChanged();
     }
+
+    public void updateEvent(int id){
+
+        Event target = null;
+        for( Event e : mEventList){
+            if(e.getId() == id)
+                target = e;
+        }
+
+        if(target != null){
+            mEventList.remove(target);
+        }else{
+            target = new EventCRUD(getContext()).readEvent(id);
+            mEventList.add(target);
+        }
+        updateListView();
+    }
+
+
 }

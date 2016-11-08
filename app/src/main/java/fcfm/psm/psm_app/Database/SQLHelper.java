@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class SQLHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "lets_go";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     private static final String CREATE_TABLE_EVENT = "CREATE TABLE " + EventCRUD.TABLE_NAME + "(" +
             EventCRUD.ID              + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -38,7 +38,7 @@ public class SQLHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS" + EventCRUD.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + EventCRUD.TABLE_NAME);
         onCreate(db);
     }
 }
