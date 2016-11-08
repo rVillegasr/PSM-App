@@ -23,13 +23,15 @@
             android:id="@+id/btn_memory"
             android:background="@color/colorAccent"
             android:layout_margin="10dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/img_selectedImg"
+            app:layout_constraintBottom_toTopOf="@+id/btn_share"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            app:layout_constraintLeft_toRightOf="@+id/btn_camera"
             app:layout_constraintRight_toRightOf="@+id/img_selectedImg"
-            app:layout_constraintLeft_toLeftOf="@+id/img_selectedImg"
-            app:layout_constraintTop_toTopOf="@+id/btn_camera"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
-            app:layout_constraintHorizontal_bias="1.0"
-            android:layout_height="100dp"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_height="100dp" />
 
         <ImageView
             app:srcCompat="@mipmap/ic_launcher"
@@ -53,7 +55,6 @@
             android:layout_margin="10dp"
             android:layout_height="100dp"
             app:layout_constraintLeft_toLeftOf="@+id/img_selectedImg"
-            app:layout_constraintRight_toRightOf="@+id/img_selectedImg"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/img_selectedImg"
             app:layout_constraintBottom_toTopOf="@+id/btn_share"
