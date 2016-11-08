@@ -22,7 +22,7 @@ public class SQLHelper extends SQLiteOpenHelper {
             EventCRUD.PRICE           + " INTEGER NOT NULL, " +
             EventCRUD.DATE            + " NUMERIC NOT NULL, "    +
             EventCRUD.ADDRESS         + " TEXT NOT NULL, "      +
-            EventCRUD.CATEGORY        + " TEXT NOT NULL "       +
+            EventCRUD.CATEGORY        + " TEXT NOT NULL, "       +
             EventCRUD.RATING          + " NUMERIC NOT NULL, "   +
             EventCRUD.FOLLOWING       + " INTEGER NOT NULL " +
             ");";

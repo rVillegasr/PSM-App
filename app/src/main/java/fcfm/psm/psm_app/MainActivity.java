@@ -15,9 +15,18 @@ import android.widget.Toast;
 
 import com.facebook.Profile;
 import com.facebook.login.LoginManager;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 import fcfm.psm.psm_app.Adapter.FragmentAdapter;
+import fcfm.psm.psm_app.Database.EventCRUD;
 import fcfm.psm.psm_app.Hardware.ShakeListener;
+import fcfm.psm.psm_app.Model.Event;
+import fcfm.psm.psm_app.Model.NetCallback;
+import fcfm.psm.psm_app.Networking.Networking;
 
 //region TODO LIST
 /*
@@ -94,6 +103,25 @@ public class MainActivity extends AppCompatActivity {
         });
         ///////////////////////////////////////////////////
         setContentView(R.layout.activity_main);
+
+        new Networking(this).execute("getEventos", "getEventos", new NetCallback() {
+
+            @Override
+            public void onWorkFinish(Object data) {
+                String eventosJSON = (String) data;
+
+                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+
+                TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
+
+                final List<Event> events = gson.fromJson(eventosJSON, token.getType());
+                EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
+                for(Event event : events){
+                    eventCRUD.createEvent(event);
+                }
+            }
+        });
+
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);

@@ -19,6 +19,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fcfm.psm.psm_app.Adapter.EventAdapter;
+import fcfm.psm.psm_app.Adapter.FragmentAdapter;
+import fcfm.psm.psm_app.Database.EventCRUD;
 import fcfm.psm.psm_app.Model.Event;
 import fcfm.psm.psm_app.Model.NetCallback;
 import fcfm.psm.psm_app.Networking.Networking;
@@ -39,7 +41,6 @@ public class EventListActivity extends Fragment {
 
         // Obtenemos los argumentos en dado caso que se pasaran a este fragmento
         //..
-
         if(getArguments() == null)
             showAllEvents = false;
         else
@@ -47,40 +48,16 @@ public class EventListActivity extends Fragment {
 
         mEventList = new ArrayList<>();
 
-        // Esta es una forma de obtener un objeto tipo "Bitmap" de un "ImageView"
-        //BitmapDrawable bitmapDrawable = (BitmapDrawable) ivPicture.getDrawable();
-        // Creamos y agregamos nuestro nuevo contacto
+        initListViewEvents();
 
-        new Networking(getActivity()).execute("getEventos", "getEventos", new NetCallback() {
-
-            @Override
-            public void onWorkFinish(Object data) {
-                String eventosJSON = (String) data;
-
-                Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-
-                TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
-
-                final List<Event> events = gson.fromJson(eventosJSON, token.getType());
-
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Event event;
-
-                        for(int i=0; i< events.size(); i++){
-                            event = events.get(i);
-                            //event.setDate( new Date(new java.util.Date().getTime()) );
-                            mEventList.add(event);
-                        }
-
-                        updateListView();
-                    }
-                });
+        EventCRUD eventCRUD = new EventCRUD(getContext());
+        List<Event> events = eventCRUD.readEvents();
+        if(events != null) {
+            for (Event event : events) {
+                mEventList.add(event);
             }
-        });
-
-
+            updateListView();
+        }
         if(showAllEvents){
             /*
             * TODO: Web service, obtener todos los eventos
@@ -126,7 +103,6 @@ public class EventListActivity extends Fragment {
         // Inicializamos por primera vez el listview de los contactos
         //..
 
-        initListViewContacts();
 
         //updateListView();
         return rootView;
@@ -141,7 +117,7 @@ public class EventListActivity extends Fragment {
     }
 
 
-    private void initListViewContacts() {
+    private void initListViewEvents() {
         EventAdapter adapter = new EventAdapter(mEventList);
         lvEvents.setAdapter(adapter);
     }

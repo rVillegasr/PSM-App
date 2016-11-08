@@ -40,7 +40,7 @@ public class CompleteEventActivity extends AppCompatActivity {
 
     ImageButton btn_openChat;
     ImageButton btn_shareMom;
-    Button btn_maps;
+    ImageButton btn_maps;
 
     final int SHARE = 100;
 
@@ -60,7 +60,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         tv_eventPrice   = (TextView) findViewById(R.id.tv_eventPrice);
         tv_eventAddress = (TextView) findViewById(R.id.tv_eventAddress);
 
-        btn_maps        = (Button) findViewById(R.id.btn_maps);
+        btn_maps        = (ImageButton) findViewById(R.id.btn_maps);
         btn_openChat    = (ImageButton) findViewById(R.id.btn_openChat);
         btn_shareMom    = (ImageButton) findViewById(R.id.btn_shareMom);
 
