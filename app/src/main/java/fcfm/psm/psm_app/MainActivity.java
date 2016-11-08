@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////
 
 
-        new Networking(this).execute("getEventos", "getEventos", new NetCallback() {
+        new Networking(this).execute("eventos", "getEventos", new NetCallback() {
 
             @Override
             public void onWorkFinish(Object data) {
@@ -121,10 +121,22 @@ public class MainActivity extends AppCompatActivity {
                 TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
 
                 final List<Event> events = gson.fromJson(eventosJSON, token.getType());
-                EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
-                for(Event event : events){
-                    eventCRUD.createEvent(event);
+
+                if(events != null){
+                    EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
+                    for(Event event : events){
+                        eventCRUD.createEvent(event);
+                    }
                 }
+            }
+        });
+
+        new Networking(this).execute("receiveChat", "getEventos", new NetCallback() {
+
+            @Override
+            public void onWorkFinish(Object data) {
+                String eventosJSON = (String) data;
+                Log.e("Thread chat", eventosJSON);
             }
         });
 

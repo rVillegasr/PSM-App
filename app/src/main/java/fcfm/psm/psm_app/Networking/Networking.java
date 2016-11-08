@@ -3,6 +3,7 @@ package fcfm.psm.psm_app.Networking;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -19,13 +20,14 @@ import java.util.List;
 import fcfm.psm.psm_app.Model.Event;
 import fcfm.psm.psm_app.Model.NetCallback;
 
+import static java.lang.Thread.sleep;
+
 
 /**
  * Created by evera on 11/6/2016.
  */
 
 public class Networking extends AsyncTask<Object, Integer, Object> {
-    static final String SERVER_PATH = "http://eventoswebservice.azurewebsites.net/api/eventos";
     static final int TIMEOUT = 3000;
 
     Context m_context;
@@ -54,39 +56,42 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
         //La respuesta del servidor
         String responseString = "";
 
-        // Contiene la url del servidor y ademas metodos para abrir la conexion
-        URL url = null;
+        switch (action)
+        {
+            case "eventos":
+            {
+                responseString = EventsRequest();
+                NetCallback netCallback = (NetCallback) params[2];
+                netCallback.onWorkFinish(responseString);
+            } break;
 
-        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
-        HttpURLConnection conn = null;
+            case "sendChat":
+            {
+                responseString = SendChat((String) params[3], (String) params[4]);
+                NetCallback netCallback = (NetCallback) params[2];
+                netCallback.onWorkFinish(responseString);
+            } break;
 
-        try {
-            url = new URL(SERVER_PATH);
+            case "receiveChat": {
 
-            // Con el metodo "openConnection()" se abre la conexion
-            conn = (HttpURLConnection) url.openConnection();
+                m_progressDialog.dismiss();
 
-            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
-            conn.setConnectTimeout(TIMEOUT);
+                while (true) {
+                    try {
+                        sleep(3000);
 
-            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
-            InputStream in = new BufferedInputStream(conn.getInputStream());
+                        responseString = ReceiveChat();
+                        NetCallback netCallback = (NetCallback) params[2];
+                        netCallback.onWorkFinish(responseString);
 
-            // Ya que la respuesta viene en un formato "InputStream" la convertimos a String ya que sabemos
-            // la respuesta esta en hecha en json por nuestro webservice.php con el metodo inputStramToString (Realizado por nosotros)
-            responseString = inputStreamToString(in);
-
-            NetCallback netCallback = (NetCallback) params[2];
-            netCallback.onWorkFinish(responseString);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            conn.disconnect();
-        }
 
-        return (Object) responseString;
+        return responseString;
     }
 
     @Override
@@ -111,5 +116,148 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
         }
 
         return response.toString();
+    }
+
+    private String EventsRequest() {
+        String SERVER_PATH = "http://eventoswebservice.azurewebsites.net/api/eventos";
+
+        //La respuesta del servidor
+        String responseString = "";
+
+        // Contiene la url del servidor y ademas metodos para abrir la conexion
+        URL url = null;
+
+        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
+        HttpURLConnection conn = null;
+
+        try {
+            url = new URL(SERVER_PATH);
+
+            // Con el metodo "openConnection()" se abre la conexion
+            conn = (HttpURLConnection) url.openConnection();
+
+            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
+            conn.setConnectTimeout(TIMEOUT);
+
+            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            // Ya que la respuesta viene en un formato "InputStream" la convertimos a String ya que sabemos
+            // la respuesta esta en hecha en json por nuestro webservice.php con el metodo inputStramToString (Realizado por nosotros)
+            responseString = inputStreamToString(in);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            conn.disconnect();
+        }
+
+        return responseString;
+    }
+
+    private String SendChat(String name, String message){
+        //Url de la peticion
+        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?function=send&name=" + name + "&message=" + message;
+
+        //La respuesta del servidor
+        String responseString = "";
+
+        // Contiene la url del servidor y ademas metodos para abrir la conexion
+        URL url = null;
+
+        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
+        HttpURLConnection conn = null;
+
+        try {
+            url = new URL(SERVER_PATH);
+
+            // Con el metodo "openConnection()" se abre la conexion
+            conn = (HttpURLConnection) url.openConnection();
+
+            // setDoInput: Activa y especifica que se esperan valores de regreso del servidor (Response)
+            conn.setDoInput(true);
+
+            // setDoOutput: Activa y especifica que se enviaran valores al servidor (Request POST, GET)
+            conn.setDoOutput(true);
+
+            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
+            conn.setConnectTimeout(TIMEOUT);
+
+            // setRequestProperty: Investigar Mime, Content-Type al hacer una peticion (HTML, PAPW);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            // Codigo de respuesta
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            //Recepcion del JSON
+            responseString = inputStreamToString(in);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            conn.disconnect();
+        }
+
+        return responseString;
+    }
+
+    private String ReceiveChat(){
+        //Url de la peticion
+        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?function=receive";
+
+        //La respuesta del servidor
+        String responseString = "";
+
+        // Contiene la url del servidor y ademas metodos para abrir la conexion
+        URL url = null;
+
+        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
+        HttpURLConnection conn = null;
+
+        try {
+            url = new URL(SERVER_PATH);
+
+            // Con el metodo "openConnection()" se abre la conexion
+            conn = (HttpURLConnection) url.openConnection();
+
+            // setDoInput: Activa y especifica que se esperan valores de regreso del servidor (Response)
+            conn.setDoInput(true);
+
+            // setDoOutput: Activa y especifica que se enviaran valores al servidor (Request POST, GET)
+            conn.setDoOutput(true);
+
+            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
+            conn.setConnectTimeout(TIMEOUT);
+
+            // setRequestProperty: Investigar Mime, Content-Type al hacer una peticion (HTML, PAPW);
+            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+
+            // Codigo de respuesta
+            int responseCode = conn.getResponseCode();
+            Log.w("RESPONSE CODE", "" + responseCode);
+
+            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            //Recepcion del JSON
+            responseString = inputStreamToString(in);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            conn.disconnect();
+        }
+
+        return responseString;
     }
 }
