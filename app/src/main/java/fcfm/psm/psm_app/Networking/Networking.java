@@ -71,8 +71,6 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
             } break;
         }
 
-
-
         return (Object) responseString;
     }
 

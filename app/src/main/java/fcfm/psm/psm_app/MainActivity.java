@@ -121,9 +121,12 @@ public class MainActivity extends AppCompatActivity {
                 TypeToken<List<Event>> token = new TypeToken<List<Event>>() {};
 
                 final List<Event> events = gson.fromJson(eventosJSON, token.getType());
-                EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
-                for(Event event : events){
-                    eventCRUD.createEvent(event);
+
+                if(events != null){
+                    EventCRUD eventCRUD = new EventCRUD(MainActivity.this);
+                    for(Event event : events){
+                        eventCRUD.createEvent(event);
+                    }
                 }
             }
         });
