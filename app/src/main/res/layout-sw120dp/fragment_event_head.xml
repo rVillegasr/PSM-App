@@ -39,7 +39,9 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintTop_toBottomOf="@+id/img_eventCover"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_marginBottom="16dp"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_marginTop="4dp" />
 
         <TextView
             android:text="DD/MM/YYYY"
@@ -51,7 +53,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
             app:layout_constraintTop_toTopOf="@+id/ratingBar"
             app:layout_constraintHorizontal_bias="1.0"
-            android:textSize="16dp" />
+            android:textSize="14sp" />
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -69,7 +71,7 @@
             app:layout_constraintVertical_bias="1.0"
             android:layout_marginStart="16dp"
             android:layout_marginTop="3dp"
-            android:layout_marginBottom="4dp" />
+            android:layout_marginBottom="8dp" />
 
         <ImageView
             android:layout_width="0dp"

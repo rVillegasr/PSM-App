@@ -80,8 +80,8 @@
             app:layout_constraintBottom_toBottomOf="parent" />
 
         <TextView
-            android:layout_width="148dp"
-            android:layout_height="58dp"
+            android:layout_width="0dp"
+            android:layout_height="59dp"
             android:text="Nombre del Evento"
             android:id="@+id/tv_eventName"
             android:textSize="20dp"
