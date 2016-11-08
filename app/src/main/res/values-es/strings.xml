@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Let\'s GO</string>
+    <string name="app_name">Lets GO</string>
     <string name="action_sign_in">Entrar o registrarse</string>
     <string name="title_activity_login">Entrar</string>
     <string name="tab_upcoming_events">PROXIMOS EVENTOS</string>

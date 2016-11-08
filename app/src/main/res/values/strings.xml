@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Let's GO</string>
+    <string name="app_name">Lets GO</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">974334052713236</string>
     <string name="fb_login_protocol_scheme">fb974334052713236</string>
