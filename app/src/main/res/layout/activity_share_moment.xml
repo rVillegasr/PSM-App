@@ -6,112 +6,76 @@
     android:layout_height="match_parent"
     tools:context="fcfm.psm.psm_app.ShareMomentActivity">
 
-    <ScrollView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:fillViewport="true">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.45"
+        app:layout_constraintVertical_bias="0.0"
+        android:id="@+id/constraintLayout2">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="0dp">
+        <ImageButton
+            android:layout_width="100dp"
+            app:srcCompat="@android:drawable/ic_menu_gallery"
+            android:id="@+id/btn_memory"
+            android:background="@color/colorAccent"
+            android:layout_margin="10dp"
+            app:layout_constraintRight_toRightOf="@+id/img_selectedImg"
+            app:layout_constraintLeft_toLeftOf="@+id/img_selectedImg"
+            app:layout_constraintTop_toTopOf="@+id/btn_camera"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_camera"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:layout_height="100dp"
+            app:layout_constraintVertical_bias="0.0" />
 
-            <android.support.constraint.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.45"
-                app:layout_constraintVertical_bias="0.0"
-                android:id="@+id/constraintLayout2">
+        <ImageView
+            app:srcCompat="@mipmap/ic_launcher"
+            android:id="@+id/img_selectedImg"
+            android:layout_width="220dp"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/btn_share"
+            android:layout_marginBottom="8dp"
+            android:layout_height="220dp"
+            app:layout_constraintVertical_bias="0.050000012" />
 
-                <ImageButton
-                    android:layout_width="50dp"
-                    app:srcCompat="@android:drawable/ic_menu_gallery"
-                    android:id="@+id/btn_memory"
-                    android:background="#4b6bfc"
-                    android:layout_margin="10dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_camera"
-                    app:layout_constraintRight_toRightOf="@+id/btn_camera"
-                    app:layout_constraintLeft_toLeftOf="@+id/btn_camera"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_share"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintVertical_bias="0.0" />
+        <ImageButton
+            app:srcCompat="@android:drawable/ic_menu_camera"
+            android:id="@+id/btn_camera"
+            android:background="@color/colorAccent"
+            android:layout_margin="10dp"
+            android:layout_height="100dp"
+            app:layout_constraintLeft_toLeftOf="@+id/img_selectedImg"
+            app:layout_constraintRight_toRightOf="@+id/img_selectedImg"
+            android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/img_selectedImg"
+            app:layout_constraintBottom_toTopOf="@+id/btn_share"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.0"
+            android:layout_width="100dp" />
 
-                <ImageView
-                    app:srcCompat="@mipmap/ic_launcher"
-                    android:id="@+id/img_selectedImg"
-                    android:layout_width="200dp"
-                    app:layout_constraintLeft_toLeftOf="@+id/txt_postDescription"
-                    app:layout_constraintRight_toRightOf="@+id/txt_postDescription"
-                    android:layout_marginTop="8dp"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_postDescription"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_share"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintVertical_bias="0.0"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    android:layout_height="200dp" />
-
-                <ImageButton
-                    android:layout_width="50dp"
-                    app:srcCompat="@android:drawable/ic_menu_camera"
-                    android:id="@+id/btn_camera"
-                    android:background="#4b6bfc"
-                    android:layout_margin="10dp"
-                    android:layout_height="51dp"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintBottom_toTopOf="@+id/btn_share"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <EditText
-                    android:layout_width="0dp"
-                    android:inputType="textMultiLine"
-                    android:ems="10"
-                    android:id="@+id/txt_postDescription"
-                    android:gravity="top"
-                    android:background="#303030"
-                    android:textColor="#ffffff"
-                    android:hint="Escriba un pensamiento"
-                    android:textColorHint="#656565"
-                    android:layout_height="0dp"
-                    app:layout_constraintTop_toTopOf="@+id/btn_camera"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_memory"
-                    android:layout_marginStart="8dp"
-                    app:layout_constraintLeft_toRightOf="@+id/btn_camera"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_marginEnd="16dp"
-                    app:layout_constraintHorizontal_bias="1.0" />
-
-                <Button
-                    android:layout_height="54dp"
-                    android:id="@+id/btn_share"
-                    android:background="#303030"
-                    android:textColor="#ffffff"
-                    android:textSize="20dp"
-                    android:layout_width="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    android:text="@string/btn_share" />
-            </android.support.constraint.ConstraintLayout>
-        </LinearLayout>
-    </ScrollView>
+        <Button
+            android:layout_height="54dp"
+            android:id="@+id/btn_share"
+            android:background="#303030"
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:layout_width="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            app:layout_constraintHorizontal_bias="1.0"
+            android:text="@string/btn_share" />
+    </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
