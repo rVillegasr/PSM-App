@@ -2,6 +2,7 @@ package fcfm.psm.psm_app;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -107,10 +108,12 @@ public class CompleteEventActivity extends AppCompatActivity {
                     new EventCRUD(CompleteEventActivity.this).follow(event.getId());
                     showToast("Now you follow this event");
                     followEvent = EVENT_FOLLOW;
+                    btn_follow.setBackgroundColor(Color.parseColor("#f0c23b"));
                 }else{
                     new EventCRUD(CompleteEventActivity.this).unfollow(event.getId());
                     showToast("You no longer follow this event");
                     followEvent = EVENT_UNFOLLOW;
+                    btn_follow.setBackgroundColor(Color.parseColor("#424242"));
                 }
             }
         });
@@ -141,6 +144,10 @@ public class CompleteEventActivity extends AppCompatActivity {
 
         Picasso.with(this).load(event.getImgPath()).into(img_eventPic);
         Picasso.with(this).load(event.getCoverPath()).into(img_eventCover);
+
+        if(event.getFollowing() == 1){
+            btn_follow.setBackgroundColor(Color.parseColor("#f0c23b"));
+        }
 
     }
 

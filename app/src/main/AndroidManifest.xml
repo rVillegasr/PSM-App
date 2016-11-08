@@ -39,6 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
+        <activity android:name=".CalendarActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".ForgottenPasswordActivity" />

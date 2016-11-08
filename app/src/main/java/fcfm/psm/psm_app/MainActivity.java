@@ -2,15 +2,18 @@ package fcfm.psm.psm_app;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.facebook.Profile;
@@ -40,20 +43,20 @@ import fcfm.psm.psm_app.Networking.Networking;
 * X Integracion con Picasso
 * -- Chat
 * -- Gestures
-* -- Obtener los eventos por categoria
+* X Obtener los eventos por categoria
 *
 * + Web services
 * X Obtener todos los eventos
-* --
+*
 * + Base de datos
-* -- Modificar usario: Solo guardar id usuario y nombre;
-* -- Hacer scripts para crear la base en MySQL
-* -- Stored procedures para los web services.
+* X Modificar usario: Solo guardar id usuario y nombre;
+* X Hacer scripts para crear la base en MySQL
+* X Stored procedures para los web services.
 *
 * + Diseño
 * X Manejar archivo de idiomas
 * X Usar valores del strings.xml en todos los controles
-* -- Logo para log in
+* X Logo para log in
 * X Dejar solo el boton de login
 * X Quitar el boton del calendario
 * X Poner fecha del evento en el header
@@ -77,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
 
+    FloatingActionButton fab_Calendar;
+
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeListener mShakeDetector;
@@ -86,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
         // ShakeDetector initialization
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager
@@ -102,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         ///////////////////////////////////////////////////
-        setContentView(R.layout.activity_main);
+
 
         new Networking(this).execute("getEventos", "getEventos", new NetCallback() {
 
@@ -123,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        fab_Calendar = (FloatingActionButton) findViewById(R.id.fab_Calendar);
+
         viewPager = (ViewPager) findViewById(R.id.viewPager);
         tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
@@ -138,6 +146,15 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout.setScrollPosition(selectedTab,0f,true);
         viewPager.setCurrentItem(selectedTab);
+
+
+        fab_Calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent calendar = new Intent(MainActivity.this, CalendarActivity.class);
+                startActivity(calendar);
+            }
+        });
 
     }
 
