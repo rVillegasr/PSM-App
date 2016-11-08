@@ -54,37 +54,24 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
         //La respuesta del servidor
         String responseString = "";
 
-        // Contiene la url del servidor y ademas metodos para abrir la conexion
-        URL url = null;
+        switch (action)
+        {
+            case "eventos":
+            {
+                responseString = EventsRequest();
+                NetCallback netCallback = (NetCallback) params[2];
+                netCallback.onWorkFinish(responseString);
+            } break;
 
-        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
-        HttpURLConnection conn = null;
-
-        try {
-            url = new URL(SERVER_PATH);
-
-            // Con el metodo "openConnection()" se abre la conexion
-            conn = (HttpURLConnection) url.openConnection();
-
-            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
-            conn.setConnectTimeout(TIMEOUT);
-
-            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
-            InputStream in = new BufferedInputStream(conn.getInputStream());
-
-            // Ya que la respuesta viene en un formato "InputStream" la convertimos a String ya que sabemos
-            // la respuesta esta en hecha en json por nuestro webservice.php con el metodo inputStramToString (Realizado por nosotros)
-            responseString = inputStreamToString(in);
-
-            NetCallback netCallback = (NetCallback) params[2];
-            netCallback.onWorkFinish(responseString);
+            case "chat":
+            {
+                responseString = EventsRequest();
+                NetCallback netCallback = (NetCallback) params[2];
+                netCallback.onWorkFinish(responseString);
+            } break;
         }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        finally {
-            conn.disconnect();
-        }
+
+
 
         return (Object) responseString;
     }
@@ -111,5 +98,85 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
         }
 
         return response.toString();
+    }
+
+    private String EventsRequest() {
+
+        //La respuesta del servidor
+        String responseString = "";
+
+        // Contiene la url del servidor y ademas metodos para abrir la conexion
+        URL url = null;
+
+        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
+        HttpURLConnection conn = null;
+
+        try {
+            url = new URL(SERVER_PATH);
+
+            // Con el metodo "openConnection()" se abre la conexion
+            conn = (HttpURLConnection) url.openConnection();
+
+            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
+            conn.setConnectTimeout(TIMEOUT);
+
+            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            // Ya que la respuesta viene en un formato "InputStream" la convertimos a String ya que sabemos
+            // la respuesta esta en hecha en json por nuestro webservice.php con el metodo inputStramToString (Realizado por nosotros)
+            responseString = inputStreamToString(in);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            conn.disconnect();
+        }
+
+        return responseString;
+    }
+
+    //TODO pasarle el nombre y el mensaje al metodo obtenido con los parametros de arriba
+    private String ChatRequest(){
+
+        //Parametros a enviar en la peticion
+        String postParams = "&action=signup&userJson=";
+
+        //La respuesta del servidor
+        String responseString = "";
+
+        // Contiene la url del servidor y ademas metodos para abrir la conexion
+        URL url = null;
+
+        // Objeto por el cual se maneja la conexion y peticiones hacia el servidor
+        HttpURLConnection conn = null;
+
+        try {
+            url = new URL(SERVER_PATH);
+
+            // Con el metodo "openConnection()" se abre la conexion
+            conn = (HttpURLConnection) url.openConnection();
+
+            // setConnectTimeout: El tiempo que va a esperar la respuesta del servidor
+            conn.setConnectTimeout(TIMEOUT);
+
+            // getInputStream: Nos da un stream de datos para leer lo que el servidor responda (Response)
+            InputStream in = new BufferedInputStream(conn.getInputStream());
+
+            // Ya que la respuesta viene en un formato "InputStream" la convertimos a String ya que sabemos
+            // la respuesta esta en hecha en json por nuestro webservice.php con el metodo inputStramToString (Realizado por nosotros)
+            responseString = inputStreamToString(in);
+
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+        finally {
+            conn.disconnect();
+        }
+
+        return responseString;
     }
 }

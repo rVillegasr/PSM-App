@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////
 
 
-        new Networking(this).execute("getEventos", "getEventos", new NetCallback() {
+        new Networking(this).execute("eventos", "getEventos", new NetCallback() {
 
             @Override
             public void onWorkFinish(Object data) {
