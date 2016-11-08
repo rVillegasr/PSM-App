@@ -170,7 +170,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintVertical_bias="0.13"
-                android:layout_width="70dp" />
+                android:layout_width="88dp" />
 
             <TextView
                 android:layout_width="0dp"
