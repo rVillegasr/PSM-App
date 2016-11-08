@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Let\'s GO</string>
+    <string name="action_sign_in">Entrar o registrarse</string>
+    <string name="title_activity_login">Entrar</string>
+    <string name="tab_upcoming_events">PROXIMOS EVENTOS</string>
+    <string name="tab_all_events">TODOS LOS EVENTOS</string>
+    <string name="prompt_password">Contraseña (opcional)</string>
+    <string name="prompt_email">Correo Electronico</string>
+    <string name="progress_dialog_logging_in_title">Entrando</string>
+    <string name="progress_dialog_logging_in_message">Espere...</string>
+    <string name="permission_rationale"></string>
+    <string name="event_price">Precio</string>
+    <string name="error_password_mismatch">Las contraseñas no coinciden</string>
+    <string name="error_invalid_password">La contraseña es muy corta</string>
+    <string name="error_invalid_email">Este correo electronico no es valido</string>
+    <string name="error_invalid_credit_card">El numero de la tarjeta de credito no es valido</string>
+    <string name="error_invalid_credentials"></string>
+    <string name="error_incorrect_password">Esta contraseña es incorrecta</string>
+    <string name="error_field_required">El campo es requerido</string>
+    <string name="error_every_field_required">Todos los campos son requeridos</string>
+    <string name="btn_sign_in">Entrar</string>
+    <string name="btn_share">Compartir en Facebook</string>
+    <string name="btn_send">Enviar</string>
+    <string name="btn_save">Guardar</string>
+    <string name="action_sign_in_short">Entrar</string>
+</resources>

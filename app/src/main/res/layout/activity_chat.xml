@@ -31,7 +31,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:text="Send"
+            android:text="@string/btn_send"
             android:id="@+id/btn_sendM"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"

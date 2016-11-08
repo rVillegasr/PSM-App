@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PSM-App</string>
+    <string name="app_name">Let's GO</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">974334052713236</string>
     <string name="fb_login_protocol_scheme">fb974334052713236</string>
@@ -23,6 +23,12 @@
 
     <string name="tab_upcoming_events">UPCOMING EVENTS</string>
     <string name="tab_all_events">ALL EVENTS</string>
+
+    <string name="event_price">Price</string>
+    <string name="btn_sign_in">Log in</string>
+    <string name="btn_save">Save</string>
+    <string name="btn_send">Send</string>
+    <string name="btn_share">Share on Facebook</string>
 
 
 </resources>
