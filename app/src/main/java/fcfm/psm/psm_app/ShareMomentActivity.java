@@ -120,29 +120,31 @@ public class ShareMomentActivity extends AppCompatActivity {
         });
 
 
-        final FacebookCallback<Sharer.Result> facebookCallback= new FacebookCallback<Sharer.Result>() {
-            @Override
-            public void onSuccess(Sharer.Result result) {
-                Log.e("Success", result.toString());
-                Intent data = new Intent();
-                setResult(RESULT_OK, data);
-                finish();
-            }
 
-            @Override
-            public void onCancel() {
-                Log.e("Cancel", "Cancel");
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-                error.printStackTrace();
-            }
-        };
 
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                FacebookCallback<Sharer.Result> facebookCallback= new FacebookCallback<Sharer.Result>() {
+                    @Override
+                    public void onSuccess(Sharer.Result result) {
+                        Log.e("Success", result.toString());
+                        Intent data = new Intent();
+                        setResult(RESULT_OK, data);
+                        finish();
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Log.e("Cancel", "Cancel");
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        error.printStackTrace();
+                    }
+                };
 
                 shareDialog = new ShareDialog(ShareMomentActivity.this);
                 messageDialog = new MessageDialog(ShareMomentActivity.this);
@@ -215,7 +217,9 @@ public class ShareMomentActivity extends AppCompatActivity {
             }
         }
         else {
-            callbackManager.onActivityResult(requestCode, resultCode, data);
+            if(callbackManager != null){
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+            }
         }
     }
 }
