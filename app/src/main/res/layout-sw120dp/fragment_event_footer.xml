@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context=".Fragments.FragmentEventFooter">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp">
+
+        <android.support.constraint.ConstraintLayout
+            android:orientation="horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/linearLayout"
+            android:background="#555555"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+            app:layout_constraintLeft_toLeftOf="@+id/linearLayout3"
+            app:layout_constraintRight_toRightOf="@+id/linearLayout3"
+            app:layout_constraintVertical_bias="0.0">
+
+            <ImageButton
+                android:layout_width="51dp"
+                app:srcCompat="@mipmap/ic_menu_chat"
+                android:id="@+id/btn_openChat"
+                app:layout_constraintRight_toLeftOf="@+id/btn_shareMom"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintTop_toTopOf="@+id/btn_shareMom"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_shareMom"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                android:layout_height="51dp" />
+
+            <ImageButton
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                app:srcCompat="@android:drawable/ic_menu_share"
+                android:id="@+id/btn_shareMom"
+                app:layout_constraintRight_toLeftOf="@+id/btn_buyTicket"
+                app:layout_constraintTop_toTopOf="@+id/btn_buyTicket"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_buyTicket"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.93"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <Button
+                android:text="$"
+                android:id="@+id/btn_buyTicket"
+                android:textColor="#FFFFFF"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintTop_toTopOf="parent"
+                android:minWidth="50dp"
+                android:minHeight="50dp"
+                android:layout_width="51dp"
+                android:layout_height="51dp" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:id="@+id/linearLayout3"
+            android:background="#555555"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="16dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Descripcion breve del evento"
+                android:id="@+id/tv_description"
+                android:textStyle="italic"
+                android:textColor="#ffffff"
+                android:textIsSelectable="false"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.71"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:textSize="18dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/event_price"
+                android:id="@+id/tv_eventPriceLB"
+                android:textColor="#ffffff"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_eventDate"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="$$"
+                android:id="@+id/tv_eventPrice"
+                android:paddingLeft="5dp"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false"
+                android:textColor="#f0c23b"
+                android:layout_marginStart="8dp"
+                app:layout_constraintLeft_toRightOf="@+id/tv_eventPriceLB"
+                app:layout_constraintTop_toTopOf="@+id/tv_eventPriceLB"
+                app:layout_constraintBottom_toBottomOf="@+id/tv_eventPriceLB"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintHorizontal_bias="0.0" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_eventDate"
+                android:text="Dia, Mes XX a las Hora SH"
+                android:textColor="#ffffff"
+                android:paddingTop="10dp"
+                android:textIsSelectable="false"
+                app:layout_constraintRight_toRightOf="@+id/tv_description"
+                android:layout_marginTop="8dp"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description"
+                app:layout_constraintLeft_toLeftOf="@+id/tv_description"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintHorizontal_bias="1.0" />
+
+
+            <Button
+                android:text="Maps"
+                android:id="@+id/btn_maps"
+                app:layout_constraintTop_toBottomOf="@+id/tv_eventPriceLB"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                android:minHeight="50dp"
+                android:minWidth="50dp"
+                android:layout_width="51dp"
+                android:layout_height="51dp"
+                android:layout_marginStart="8dp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:text="Direccion"
+                android:id="@+id/tv_eventAddress"
+                android:textColor="#303030"
+                android:layout_marginStart="8dp"
+                app:layout_constraintLeft_toRightOf="@+id/btn_maps"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_maps"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_maps"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintVertical_bias="1.0" />
+
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>
