@@ -67,6 +67,7 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
 
             case "sendChat":
             {
+                m_progressDialog.dismiss();
                 responseString = SendChat((String) params[3], (String) params[4]);
                 NetCallback netCallback = (NetCallback) params[2];
                 netCallback.onWorkFinish(responseString);

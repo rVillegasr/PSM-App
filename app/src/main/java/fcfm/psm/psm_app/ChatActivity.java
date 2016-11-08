@@ -3,6 +3,7 @@ package fcfm.psm.psm_app;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
@@ -12,8 +13,19 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.facebook.Profile;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import fcfm.psm.psm_app.Model.Message;
+import fcfm.psm.psm_app.Model.NetCallback;
+import fcfm.psm.psm_app.Networking.Networking;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -41,12 +53,45 @@ public class ChatActivity extends AppCompatActivity {
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // mandar
+                // sendChat
+                String message = txt_message.getText().toString();
+                String name = Profile.getCurrentProfile().getName();
+                new Networking(ChatActivity.this).execute("sendChat", " ", new NetCallback() {
+
+                    @Override
+                    public void onWorkFinish(Object data) {
+
+                        String eventosJSON = (String) data;
+                        Log.e("Thread chat", eventosJSON);
+                    }
+                }, name, message);
             }
         });
 
 
-        
+        // receiveChat
+        new Networking(this).execute("receiveChat", " ", new NetCallback() {
+
+            @Override
+            public void onWorkFinish(Object data) {
+                String eventosJSON = (String) data;
+                TypeToken<List<Message>> token = new TypeToken<List<Message>>() {};
+
+                final List<Message> events = new Gson().fromJson(eventosJSON, token.getType());
+                for(Message message : events){
+                    messages.add(message.getName() + ": " + message.getMessage());
+                }
+                ChatActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateListView();
+                    }
+                });
+
+                Log.e("Thread chat", eventosJSON);
+            }
+        });
+
 
     }
 

@@ -100,8 +100,8 @@ public class CompleteEventActivity extends AppCompatActivity {
         btn_openChat.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent chat = new Intent(CompleteEventActivity.this, ChatActivity.class);
-                startActivity(chat);
+                /*Intent chat = new Intent(CompleteEventActivity.this, ChatActivity.class);
+                startActivity(chat);*/
             }
         });
         btn_shareMom.setOnClickListener(new View.OnClickListener() {
