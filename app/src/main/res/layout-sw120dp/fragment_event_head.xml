@@ -53,7 +53,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/ratingBar"
             app:layout_constraintTop_toTopOf="@+id/ratingBar"
             app:layout_constraintHorizontal_bias="1.0"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:layout_marginEnd="8dp" />
 
         <RatingBar
             android:layout_width="wrap_content"
@@ -96,7 +97,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:layout_marginBottom="8dp" />
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.7" />
 
     </android.support.constraint.ConstraintLayout>
 
