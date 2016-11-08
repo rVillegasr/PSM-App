@@ -62,55 +62,14 @@ public class CompleteEventActivity extends AppCompatActivity {
     final public static int EVENT_FOLLOW = 1;
     final public static int EVENT_UNFOLLOW = 2;
 
-    GestureLibrary gestureLibrary;
-    GestureDetector gestureDetector;
-    GestureOverlayView gestureOverlayView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_event);
 
-        gestureLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
-        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener());
-        gestureOverlayView = (GestureOverlayView)findViewById(R.id.gesture_overlay);
 
-        if(!gestureLibrary.load()){
-            Log.e("Gestures", "Los gestures no se cargaron");
-        }
-
-        gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
-            @Override
-            public void onGesturePerformed(GestureOverlayView gestureOverlayView, Gesture gesture) {
-//Le pedimos a la libreria que reconozca la gesture que hizo el usuario
-                List<Prediction> predictions = gestureLibrary.recognize(gesture);
-
-                if(predictions.size() >  0){
-
-                    Prediction prediction = predictions.get(0);
-
-                    if(prediction.score > 1.0){
-                        String name = prediction.name;
-
-                        if(name.equals("follow")) {
-                            if(event.getFollowing() == 0) {
-                                new EventCRUD(CompleteEventActivity.this).follow(event.getId());
-                                showToast("Now you follow this event");
-                                followEvent = EVENT_FOLLOW;
-                                event.setFollowing(1);
-                                btn_follow.setBackgroundColor(Color.parseColor("#f0c23b"));
-                            }else{
-                                new EventCRUD(CompleteEventActivity.this).unfollow(event.getId());
-                                showToast("You no longer follow this event");
-                                followEvent = EVENT_UNFOLLOW;
-                                event.setFollowing(0);
-                                btn_follow.setBackgroundColor(Color.parseColor("#424242"));
-                            }
-                        }
-                    }
-                }
-            }
-        });
 
         img_eventPic    = (ImageView) findViewById(R.id.img_eventPic);
         img_eventCover  = (ImageView) findViewById(R.id.img_eventCover);

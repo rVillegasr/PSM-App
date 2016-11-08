@@ -43,5 +43,16 @@
         android:layout_height="151dp"
         app:srcCompat="@mipmap/logo_hdpi" />
 
+    <android.gesture.GestureOverlayView
+        android:id="@+id/gesture_overlay"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:uncertainGestureColor="#00000000"
+        android:gestureColor="#00000000"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btn_startWfb" />
+
 
 </android.support.constraint.ConstraintLayout>

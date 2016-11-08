@@ -6,12 +6,19 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
 import android.util.Base64;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -34,6 +41,9 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+
+import fcfm.psm.psm_app.Database.EventCRUD;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -44,9 +54,14 @@ public class LoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;
 
+    GestureLibrary gestureLibrary;
+    GestureDetector gestureDetector;
+    GestureOverlayView gestureOverlayView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_login);
@@ -109,6 +124,36 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
+            }
+        });
+
+
+        gestureLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
+        gestureDetector = new GestureDetector(this, new GestureDetector.SimpleOnGestureListener());
+        gestureOverlayView = (GestureOverlayView)findViewById(R.id.gesture_overlay);
+
+        if(!gestureLibrary.load()){
+            Log.e("Gestures", "Los gestures no se cargaron");
+        }
+
+        gestureOverlayView.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
+            @Override
+            public void onGesturePerformed(GestureOverlayView gestureOverlayView, Gesture gesture) {
+//Le pedimos a la libreria que reconozca la gesture que hizo el usuario
+                List<Prediction> predictions = gestureLibrary.recognize(gesture);
+
+                if(predictions.size() >  0){
+
+                    Prediction prediction = predictions.get(0);
+
+                    if(prediction.score > 1.0){
+                        String name = prediction.name;
+
+                        if(name.equals("follow")) {
+                            LoginManager.getInstance().logInWithReadPermissions(LoginActivity.this, Arrays.asList("public_profile"));
+                        }
+                    }
+                }
             }
         });
 

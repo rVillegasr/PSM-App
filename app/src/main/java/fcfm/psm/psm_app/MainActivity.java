@@ -38,11 +38,11 @@ import fcfm.psm.psm_app.Networking.Networking;
 * X Mapa
 * X Localizacion
 * N Incluir lo anterior en el share de facebook
-* -- Caledario
+* X Caledario
 * X Raiting
 * X Integracion con Picasso
 * -- Chat
-* -- Gestures
+* X Gestures
 * X Obtener los eventos por categoria
 *
 * + Web services
