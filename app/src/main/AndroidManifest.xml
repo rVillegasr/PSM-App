@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="fcfm.psm.psm_app">
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true"/>
+
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -20,7 +24,7 @@
         android:theme="@style/AppTheme">
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
-
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBzINAU6snGaK5scPZ6Gy90Rs12sihifHg"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
