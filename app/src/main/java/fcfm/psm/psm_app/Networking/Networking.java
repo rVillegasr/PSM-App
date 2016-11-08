@@ -20,6 +20,8 @@ import java.util.List;
 import fcfm.psm.psm_app.Model.Event;
 import fcfm.psm.psm_app.Model.NetCallback;
 
+import static java.lang.Thread.sleep;
+
 
 /**
  * Created by evera on 11/6/2016.
@@ -70,12 +72,23 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
                 netCallback.onWorkFinish(responseString);
             } break;
 
-            case "receiveChat":
-            {
-                responseString = ReceiveChat();
-                NetCallback netCallback = (NetCallback) params[2];
-                netCallback.onWorkFinish(responseString);
-            } break;
+            case "receiveChat": {
+
+                m_progressDialog.dismiss();
+
+                while (true) {
+                    try {
+                        sleep(3000);
+
+                        responseString = ReceiveChat();
+                        NetCallback netCallback = (NetCallback) params[2];
+                        netCallback.onWorkFinish(responseString);
+
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
 
         return responseString;
@@ -209,11 +222,8 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
     }
 
     private String ReceiveChat(){
-//Url de la peticion
-        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?";
-
-        //Parametros a enviar en la peticion
-        String postParams = "&function=receive";
+        //Url de la peticion
+        String SERVER_PATH = "https://shark.000webhostapp.com/chat.php?function=receive";
 
         //La respuesta del servidor
         String responseString = "";
@@ -241,15 +251,6 @@ public class Networking extends AsyncTask<Object, Integer, Object> {
 
             // setRequestProperty: Investigar Mime, Content-Type al hacer una peticion (HTML, PAPW);
             conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-            // setFixedLengthStreamingMode: Se especifica el tamano del "request" (lo que se enviara al servidor
-            conn.setFixedLengthStreamingMode(postParams.getBytes().length);
-
-            // getOutputStream: Nos da un stream de datos para comenzar a escribir en el lo que se envia al servidor
-            OutputStream out = new BufferedOutputStream(conn.getOutputStream());
-            out.write(postParams.getBytes());
-            out.flush();
-            out.close();
 
             // Codigo de respuesta
             int responseCode = conn.getResponseCode();

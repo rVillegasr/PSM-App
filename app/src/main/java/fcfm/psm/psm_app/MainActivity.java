@@ -131,6 +131,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        new Networking(this).execute("receiveChat", "getEventos", new NetCallback() {
+
+            @Override
+            public void onWorkFinish(Object data) {
+                String eventosJSON = (String) data;
+                Log.e("Thread chat", eventosJSON);
+            }
+        });
+
 
         fab_Calendar = (FloatingActionButton) findViewById(R.id.fab_Calendar);
 
