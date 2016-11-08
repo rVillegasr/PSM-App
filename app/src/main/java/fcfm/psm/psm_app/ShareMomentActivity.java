@@ -98,9 +98,7 @@ public class ShareMomentActivity extends AppCompatActivity {
 
                 if (ContextCompat.checkSelfPermission(ShareMomentActivity.this,
                         Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-
                     ActivityCompat.requestPermissions(ShareMomentActivity.this, permissos, 1 );
-
                 }else{
                     Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(intent, TAKE_PICTURE);
@@ -118,9 +116,6 @@ public class ShareMomentActivity extends AppCompatActivity {
                 startActivityForResult(Intent.createChooser(pictureIntent, "Select picture"), SELECT_PICTURE);
             }
         });
-
-
-
 
         btn_share.setOnClickListener(new View.OnClickListener() {
             @Override

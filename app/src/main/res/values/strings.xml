@@ -2,6 +2,7 @@
     <string name="app_name">Let\'s GO</string>
     <string name="title_activity_login">Sign in</string>
     <string name="facebook_app_id">974334052713236</string>
+    <string name="google_api_key">AIzaSyBzINAU6snGaK5scPZ6Gy90Rs12sihifHg</string>
     <string name="fb_login_protocol_scheme">fb974334052713236</string>
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

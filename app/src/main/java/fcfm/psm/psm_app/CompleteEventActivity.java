@@ -40,6 +40,7 @@ public class CompleteEventActivity extends AppCompatActivity {
 
     ImageButton btn_openChat;
     ImageButton btn_shareMom;
+    Button btn_maps;
 
     final int SHARE = 100;
 
@@ -48,19 +49,29 @@ public class CompleteEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_event);
 
-        img_eventPic = (ImageView) findViewById(R.id.img_eventPic);
-        img_eventCover = (ImageView) findViewById(R.id.img_eventCover);
-        tv_eventName = (TextView) findViewById(R.id.tv_eventName);
-        tv_miniDate = (TextView)findViewById(R.id.tv_date);
-        ratingBar = (RatingBar)findViewById(R.id.ratingBar);
+        img_eventPic    = (ImageView) findViewById(R.id.img_eventPic);
+        img_eventCover  = (ImageView) findViewById(R.id.img_eventCover);
+        tv_eventName    = (TextView) findViewById(R.id.tv_eventName);
+        tv_miniDate     = (TextView) findViewById(R.id.tv_date);
+        ratingBar       = (RatingBar)findViewById(R.id.ratingBar);
 
-        tv_description = (TextView) findViewById(R.id.tv_description);
-        tv_eventDate = (TextView) findViewById(R.id.tv_eventDate);
-        tv_eventPrice = (TextView) findViewById(R.id.tv_eventPrice);
+        tv_description  = (TextView) findViewById(R.id.tv_description);
+        tv_eventDate    = (TextView) findViewById(R.id.tv_eventDate);
+        tv_eventPrice   = (TextView) findViewById(R.id.tv_eventPrice);
         tv_eventAddress = (TextView) findViewById(R.id.tv_eventAddress);
 
-        btn_openChat = (ImageButton) findViewById(R.id.btn_openChat);
-        btn_shareMom = (ImageButton) findViewById(R.id.btn_shareMom);
+        btn_maps        = (Button) findViewById(R.id.btn_maps);
+        btn_openChat    = (ImageButton) findViewById(R.id.btn_openChat);
+        btn_shareMom    = (ImageButton) findViewById(R.id.btn_shareMom);
+
+        btn_maps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent maps = new Intent(CompleteEventActivity.this, MapsActivity.class);
+                maps.putExtra("address", event.getAddress());
+                startActivity(maps);
+            }
+        });
 
         btn_openChat.setOnClickListener(new View.OnClickListener() {
             @Override
