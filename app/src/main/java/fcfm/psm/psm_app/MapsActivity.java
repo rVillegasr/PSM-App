@@ -4,6 +4,7 @@ import android.*;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
@@ -34,6 +35,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     boolean accessGranted = false;
     final int REQUEST_LOCATION_PERMISSIONS = 100;
 
+    String address;
+    String eventName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,12 +48,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
-
-        // Instaciammos nuestor objeto mapa
-
         map = googleMap;
-
+        geocoder = new Geocoder(this);
         // Inicializa nuestro objeto LocationManager
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -70,35 +69,33 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
 
 
-        // Continuamos obteniendo la ubicacion del usuario para despues mostrar esa ubucacion en el mapa por default
-        // pero cuando no se encuentre la ubicacion entonces pondremos una ubicacion fija.
-        LatLng currentLocation = null;
-        try {
+        Intent intent = getIntent();
+        address = intent.getStringExtra("address");
+        eventName = intent.getStringExtra("name");
 
-            // Utilizamos el metodo que desarrollamos para obtener la ubicacion del usuario
-            currentLocation = getCurrentLocation();
-        }catch (SecurityException e) {
-            e.printStackTrace();
-        }
+        LatLng location = getAddressLocation(address);
 
-        // Si se pudo obtener la ubicacion
-        if (currentLocation != null) {
-            // Movemos la camara para que apunte a otra coordenada diferente e la default
-            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(currentLocation, 16.f);
-            map.moveCamera(cu);
-
-        } else { // Si no se pudo obtener la ubicacion
-            // Ponemos una ubicacion fija
-            LatLng mtyLocation = new LatLng(25.65, -100.29);
-            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(mtyLocation, 16.f);
+        if(location != null) {
+            MarkerOptions marker = new MarkerOptions().position(location).title(eventName).snippet(address);
+            map.addMarker(marker);
+            CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(location, 16.0f);
             map.moveCamera(cu);
         }
+        else{
+            showToast("Location not found");
+            LatLng currentLocation = null;
+            try {
+                currentLocation = getCurrentLocation();
+            }catch (SecurityException e) {
+                e.printStackTrace();
+            }
+            if (currentLocation != null) {
+                // Movemos la camara para que apunte a otra coordenada diferente e la default
+                CameraUpdate cu = CameraUpdateFactory.newLatLngZoom(currentLocation, 16.f);
+                map.moveCamera(cu);
 
-        /*
-        LatLng sydney = new LatLng(-34, 151);
-        map.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        map.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-        */
+            }
+        }
     }
 
     private LatLng getCurrentLocation() throws SecurityException {
@@ -121,6 +118,24 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             return null;
         }
         return new LatLng(bestLocation.getLatitude(), bestLocation.getLongitude());
+    }
+
+    private LatLng getAddressLocation(String strAddress) {
+        List<Address> foundAddress;
+        LatLng result = null;
+        try{
+            foundAddress = geocoder.getFromLocationName(strAddress, 5);
+            if(foundAddress == null){
+                return null;
+            }
+            Address location = foundAddress.get(0);
+            result = new LatLng(location.getLatitude(), location.getLongitude());
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return result;
     }
 
     void showToast(String msg) {

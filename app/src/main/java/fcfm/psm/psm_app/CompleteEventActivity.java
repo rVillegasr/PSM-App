@@ -69,6 +69,7 @@ public class CompleteEventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent maps = new Intent(CompleteEventActivity.this, MapsActivity.class);
                 maps.putExtra("address", event.getAddress());
+                maps.putExtra("name", event.getName());
                 startActivity(maps);
             }
         });
@@ -116,7 +117,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         tv_eventDate.setText(event.getDate().toString());
         tv_miniDate.setText(event.getDate().toString());
 
-        tv_eventPrice.setText("" + event.getPrice());
+        tv_eventPrice.setText("$" + event.getPrice());
 
         ratingBar.setRating(event.getRating());
 

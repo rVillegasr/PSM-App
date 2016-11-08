@@ -39,7 +39,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button btn_starWfb;
 
-    final String APP_SHARED_PREFS = "AppPrefs";
+
     final int MAIN_ACTIVITY_REQUEST = 1;
 
     CallbackManager callbackManager;
@@ -131,12 +131,6 @@ public class LoginActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
         if(requestCode == MAIN_ACTIVITY_REQUEST) {
-            SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putString("username", "");
-            editor.putString("password", "");
-            editor.putLong("timestamp", 0);
-            editor.commit();
         }
     }
 }

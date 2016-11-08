@@ -39,6 +39,46 @@ public class FragmentAdapter extends FragmentPagerAdapter{
                 fragmentEventHeader.setArguments(args);
                 return fragmentEventHeader;
             }
+            case 2: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
+
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
+            case 3: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
+
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
+            case 4: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
+
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
+            case 5: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
+
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
+            case 6: {
+                EventListActivity fragmentEventHeader = new EventListActivity();
+                Bundle args = new Bundle();
+                args.putBoolean("all", true);
+
+                fragmentEventHeader.setArguments(args);
+                return fragmentEventHeader;
+            }
             default:
                 return null;
 
@@ -52,6 +92,16 @@ public class FragmentAdapter extends FragmentPagerAdapter{
                 return mContext.getString(R.string.tab_upcoming_events);
             case 1:
                 return mContext.getString(R.string.tab_all_events);
+            case 2:
+                return mContext.getString(R.string.tab_art_and_culture);
+            case 3:
+                return mContext.getString(R.string.tab_music);
+            case 4:
+                return mContext.getString(R.string.tab_science_and_tecnology);
+            case 5:
+                return mContext.getString(R.string.tab_sports);
+            case 6:
+                return mContext.getString(R.string.tab_theater);
             default:
                 return null;
         }
@@ -59,6 +109,6 @@ public class FragmentAdapter extends FragmentPagerAdapter{
 
     @Override
     public int getCount() {
-        return 2;
+        return 7;
     }
 }

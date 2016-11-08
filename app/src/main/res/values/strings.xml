@@ -24,12 +24,13 @@
 
     <string name="tab_upcoming_events">FOLLOWING</string>
     <string name="tab_all_events">ALL</string>
-<!--
-    <string name="tab_">ALL</string>
-    <string name="tab_all_events">ALL</string>
-    <string name="tab_all_events">ALL</string>
-    <string name="tab_all_events">ALL</string>
--->
+
+    <string name="tab_art_and_culture">ART &amp; CULTURE</string>
+    <string name="tab_music">MUSIC</string>
+    <string name="tab_science_and_tecnology">SCIENCE &amp; TECHNOLOGY</string>
+    <string name="tab_theater">THEATER</string>
+    <string name="tab_sports">SPORTS</string>
+
     <string name="event_price">Price</string>
     <string name="btn_sign_in">Log in</string>
     <string name="btn_save">Save</string>

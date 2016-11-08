@@ -2,6 +2,7 @@ package fcfm.psm.psm_app;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
 import android.os.Bundle;
@@ -64,9 +65,14 @@ import fcfm.psm.psm_app.Hardware.ShakeListener;
 
 public class MainActivity extends AppCompatActivity {
 
+    ViewPager viewPager;
+    TabLayout tabLayout;
+
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private ShakeListener mShakeDetector;
+
+    final String APP_SHARED_PREFS = "AppPrefs";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,14 +95,22 @@ public class MainActivity extends AppCompatActivity {
         ///////////////////////////////////////////////////
         setContentView(R.layout.activity_main);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        viewPager = (ViewPager) findViewById(R.id.viewPager);
+        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
 
         // Nuestro adaptador de fragmentos
         FragmentAdapter adapter = new FragmentAdapter(this, getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         // Asignamos viewpager a este tabLayout
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(viewPager);
+
+        SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE );
+        int selectedTab = prefs.getInt("selectedTab", 0);
+
+        tabLayout.setScrollPosition(selectedTab,0f,true);
+        viewPager.setCurrentItem(selectedTab);
+
     }
 
     @Override
@@ -117,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(exit) {
-            //LoginManager.getInstance().logOut();
+            SharedPreferences prefs = getSharedPreferences(APP_SHARED_PREFS, MODE_PRIVATE);
+            prefs.edit().putInt("selectedTab", viewPager.getCurrentItem()).commit();
             finish();
         }else{
             showToast("Tap again to exit");
