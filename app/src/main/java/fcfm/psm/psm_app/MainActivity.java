@@ -1,6 +1,9 @@
 package fcfm.psm.psm_app;
 
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -13,10 +16,10 @@ import com.facebook.Profile;
 import com.facebook.login.LoginManager;
 
 import fcfm.psm.psm_app.Adapter.FragmentAdapter;
+import fcfm.psm.psm_app.Hardware.ShakeListener;
 
-
+//region TODO LIST
 /*
-* TODO LIST:
 * + Logic
 * X Share con facebook
 * -- Mapa
@@ -57,13 +60,33 @@ import fcfm.psm.psm_app.Adapter.FragmentAdapter;
 * -- Comentarios en los eventos
 *
 * */
-
+//endregion
 
 public class MainActivity extends AppCompatActivity {
+
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeListener mShakeDetector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // ShakeDetector initialization
+        mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager
+                .getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mShakeDetector = new ShakeListener();
+        mShakeDetector.setOnShakeListener(new ShakeListener.OnShakeListener() {
+
+            @Override
+            public void onShake(int count) {
+				/*
+				 * Aqui va la logica de cuando agite el celular
+				 */
+                showToast("" + count + " testing");
+            }
+        });
+        ///////////////////////////////////////////////////
         setContentView(R.layout.activity_main);
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -74,6 +97,20 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         // Asignamos viewpager a este tabLayout
         tabLayout.setupWithViewPager(viewPager);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Add the following line to register the Session Manager Listener onResume
+        mSensorManager.registerListener(mShakeDetector, mAccelerometer,	SensorManager.SENSOR_DELAY_UI);
+    }
+
+    @Override
+    public void onPause() {
+        // Add the following line to unregister the Sensor Manager onPause
+        mSensorManager.unregisterListener(mShakeDetector);
+        super.onPause();
     }
 
     private Boolean exit = false;
