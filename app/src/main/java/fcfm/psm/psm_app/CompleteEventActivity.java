@@ -44,7 +44,7 @@ public class CompleteEventActivity extends AppCompatActivity {
     ImageButton btn_openChat;
     ImageButton btn_shareMom;
     ImageButton btn_maps;
-    Button btn_follow;
+    ImageButton btn_follow;
 
     final int SHARE = 100;
 
@@ -52,7 +52,7 @@ public class CompleteEventActivity extends AppCompatActivity {
 
     final public static int NO_EVENT = 0;
     final public static int EVENT_FOLLOW = 1;
-    final public static int EVENT_UNFOLLOW = 0;
+    final public static int EVENT_UNFOLLOW = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +73,7 @@ public class CompleteEventActivity extends AppCompatActivity {
         btn_maps        = (ImageButton) findViewById(R.id.btn_maps);
         btn_openChat    = (ImageButton) findViewById(R.id.btn_openChat);
         btn_shareMom    = (ImageButton) findViewById(R.id.btn_shareMom);
-        btn_follow      = (Button)      findViewById(R.id.btn_follow);
+        btn_follow      = (ImageButton)      findViewById(R.id.btn_follow);
 
         btn_maps.setOnClickListener(new View.OnClickListener() {
             @Override
