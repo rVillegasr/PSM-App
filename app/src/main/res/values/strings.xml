@@ -22,9 +22,14 @@
     <string name="progress_dialog_logging_in_title">Logging in</string>
     <string name="progress_dialog_logging_in_message">Wait...</string>
 
-    <string name="tab_upcoming_events">UPCOMING EVENTS</string>
-    <string name="tab_all_events">ALL EVENTS</string>
-
+    <string name="tab_upcoming_events">FOLLOWING</string>
+    <string name="tab_all_events">ALL</string>
+<!--
+    <string name="tab_">ALL</string>
+    <string name="tab_all_events">ALL</string>
+    <string name="tab_all_events">ALL</string>
+    <string name="tab_all_events">ALL</string>
+-->
     <string name="event_price">Price</string>
     <string name="btn_sign_in">Log in</string>
     <string name="btn_save">Save</string>
